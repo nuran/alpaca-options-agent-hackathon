@@ -1,0 +1,38 @@
+{
+  "_source": "Live account figures recorded from the agent's own decision journals at flat-by. The journals themselves are gitignored -- they contain account activity -- so these numbers cannot be recomputed from this repo and are committed here as data instead, rather than being written into the demo's UI code. Each account's backtest is NOT duplicated here: it is read from the run folder named in `backtest_run`.",
+  "window": "1-4 September 2026",
+  "venue": "Alpaca paper",
+  "initial_equity": 100000.0,
+  "note": "Both accounts ran the identical agent_loop.py. The only difference is the tenor band in the profile rulebook, so the comparison is controlled rather than two unrelated bets.",
+  "accounts": [
+    {
+      "label": "C",
+      "account_id": "PA3UU4TX8Y3K",
+      "profile": "putcr-core6-d47",
+      "tenor": "DTE 4-7",
+      "backtest_run": "2026-09-04_book6_account-c_1Day",
+      "equity": 100342.80,
+      "return_pct": 0.00343,
+      "cycles": 242,
+      "spreads_submitted": 8,
+      "filled": 2,
+      "unfilled_at_limit": 6,
+      "open_at_flat": "1 - SPY 749/754P"
+    },
+    {
+      "label": "B",
+      "account_id": "PA3ZNXHF8ID1",
+      "profile": "putcr-core6",
+      "tenor": "DTE 1-7",
+      "backtest_run": "2026-09-04_book6_account-b_1Day",
+      "equity": 100277.20,
+      "return_pct": 0.00277,
+      "cycles": 131,
+      "spreads_submitted": 7,
+      "filled": 7,
+      "unfilled_at_limit": 0,
+      "open_at_flat": "0 - flat"
+    }
+  ],
+  "reading": "C leads on live P&L. B is the book that survives the friction sweep. Three days on two filled spreads is noise, not evidence; two and a half years on 312 trades is evidence, and it says C's tenor does not survive realistic execution cost."
+}

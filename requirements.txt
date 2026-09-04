@@ -9,3 +9,9 @@ numpy>=1.26        # array maths in the backtest engine and the vol models
 requests>=2.31     # REST calls in alpaca/_common.py and the LLM classification step
 pyyaml>=6.0        # us_adaptive/ configuration
 scipy>=1.11        # Student-t sampling in us_adaptive/
+
+# Public demo only (streamlit_app.py) -- a read-only page over the committed run
+# artifacts. It carries no credentials and makes no network call. Streamlit Community
+# Cloud installs the app's dependencies from this file.
+pandas>=2.2        # run tables and the trade browser in the demo
+streamlit>=1.50    # the demo itself

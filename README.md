@@ -7,6 +7,12 @@ short-dated ETF options. **Paper only — no code path in this repository constr
 Submitted to the [lablab.ai × Alpaca AI Trading Agents Hackathon](https://lablab.ai/ai-hackathons/alpaca-ai-trading-agents-hackathon),
 4 September 2026.
 
+**Interactive demo:** [`streamlit_app.py`](streamlit_app.py) — the live A/B, the friction
+sweep, the deflated Sharpe, every trade, and where the P&L actually comes from. It reads
+only the committed artifacts in this repository: no credentials, no API calls, no live
+account access, so nothing on the page can drift from the results it describes. Run it
+with `pip install -r requirements.txt && streamlit run streamlit_app.py`.
+
 ---
 
 ## 1. The accounts
