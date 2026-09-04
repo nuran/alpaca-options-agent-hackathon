@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.nuka.alpaca-agent-c</string>
+
+  <!-- The repo's own venv interpreter, by ABSOLUTE path. launchd runs with a minimal
+       PATH and would otherwise resolve /usr/bin/python3 (3.9.6), which has neither
+       duckdb nor requests. Modelled on com.nuka.trend-radar.plist. -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/ABSOLUTE/PATH/TO/alpaca-options-agent/.venv/bin/python</string>
+    <string>/ABSOLUTE/PATH/TO/alpaca-options-agent/agent/agent_loop.py</string>
+    <string>--profile</string>
+    <string>putcr-core6-d47</string>
+    <string>--once</string>
+  </array>
+
+  <!-- Set explicitly rather than inherited as "/", because the agent resolves its
+       rules file and journal relative to the repo root. -->
+  <key>WorkingDirectory</key>
+  <string>/ABSOLUTE/PATH/TO/alpaca-options-agent</string>
+
+  <!-- Every 30 minutes, around the clock. The agent's own market gate exits
+       immediately outside regular hours, which is simpler and more robust than
+       encoding a trading calendar in StartCalendarInterval -- half-days and market
+       holidays are handled by asking Alpaca's clock rather than by guessing. -->
+  <key>StartInterval</key>
+  <integer>900</integer>
+
+  <!-- Do not fire a cycle merely because the Mac woke up or the plist was loaded;
+       wait for the next scheduled tick. -->
+  <key>RunAtLoad</key>
+  <false/>
+
+  <!-- Phase 4 dry run: SHADOW=1 forces --dry-run on every order regardless of the
+       command line. Set to 0 (or remove this block) for the competition run. This is
+       the belt to the --shadow flag's braces: two independent ways to stay flat. -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>SHADOW</key>
+    <string>0</string>
+    <!-- launchd's default PATH does not include Homebrew, so the `alpaca` binary
+         is unreachable without this. agent_loop.py also resolves it absolutely --
+         two independent fixes, because a scheduled run that cannot find its CLI
+         fails silently at 09:30 on a competition morning. -->
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/nuka-alpaca-agent.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/nuka-alpaca-agent.log</string>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

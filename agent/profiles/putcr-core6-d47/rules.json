@@ -1,0 +1,207 @@
+{
+  "_comment": [
+    "PUT CREDIT / CORE-6 / DTE 4-7 -- account C (PA3UU4TX8Y3K).",
+    "",
+    "The tenor arm of a two-book comparison. Account B runs the SAME book at DTE 1-7;",
+    "universe, structure, delta, width and vol gate are identical, so tenor is the only",
+    "variable between them.",
+    "",
+    "MEASURED, AND CHOSEN ANYWAY. From runs/_grid/tenor.jsonl, put credit on these six",
+    "names at 0.15 delta and 5-wide, this tenor is the second-WORST of the four tested:",
+    "",
+    "      DTE      return   Sharpe    maxDD     PF   trades",
+    "     8:15     +12.97%     1.06   -5.83%   1.38      376    <- best by a wide margin",
+    "      1:3      +7.02%     0.51   -9.55%   1.23      244",
+    "      4:7      +4.35%     0.35   -5.88%   1.11      363    <- this book",
+    "     4:15      +2.93%     0.24   -5.62%   1.07      381",
+    "",
+    "Operator decision on 2026-09-01, taken with that table in hand. If this book",
+    "disappoints, 8:15 is where the evidence points and it is a one-line change.",
+    "",
+    "NARROW WINDOW ON DAY ONE. From 2026-09-01 the 4-7 span is Sep 5-8: Sep 5-6 are a",
+    "weekend and Sep 7 is Labor Day, so Sep 8 is the ONLY expiry in range. All six names",
+    "were confirmed to list it (SPY/QQQ/IWM/GLD 100 contracts each, SMH 86, XLF 44), so",
+    "the book has something to price -- but it is more concentrated than the backtest,",
+    "which had the whole ladder to choose from.",
+    "",
+    "UNIVERSE RESTRICTED 2026-09-01 to SPY/QQQ/IWM. put credit 4-7: CORE-6 -0.37%/Sharpe -0.01 -> SPY/QQQ/IWM +1.71%/+0.18 at 3% friction. Note the CORE-6 figure at 3% is far below the +4.35% quoted from runs/_grid/tenor.jsonl, because that grid row used the `measured` friction model rather than a flat 3%.",
+    "",
+    "UNIVERSE WIDENED 2026-09-01 to the full FLOOR-12 list. Six of the twelve (USO, SLV,",
+    "TLT, IBIT, UNG, XLV) have NO option history in this repo's store and therefore no",
+    "backtest coverage of any kind; two more (XLF, SMH) were measured live at 51-60%",
+    "bid-ask and admit nothing through the 8% cap. Expect the tradeable set to be closer",
+    "to four or five names than twelve, and read the decision log rather than the list."
+  ],
+  "account": {
+    "label": "putcr-c47",
+    "account_id": "PA3UU4TX8Y3K",
+    "key_env": "ALPACA_API_KEY_C",
+    "secret_env": "ALPACA_SECRET_KEY_C",
+    "_why": "Asserted against `alpaca account get` before any order. Replaces the condor book on this account -- one book per account, so the account-level daily-loss and drawdown halts stay per-book figures."
+  },
+  "universe": {
+    "mode": "fixed",
+    "_mode": "fixed = trade the listed underlyings. selector = ShortVol top-N plus LongConvex top-N from data/universe_ranked.json (skill-filtered). shortlist is an alias of selector (does NOT dump CORE six). funnel = US-ADAPT in us_adaptive/.",
+    "shortlist": {
+      "path": "data/shortlist.csv",
+      "buckets": [
+        "CORE"
+      ],
+      "exclude_event_mode": true,
+      "also_selector": true,
+      "_why": "CSV is the ingest/backtest universe, not the live book. Live names come from underlyings when mode=fixed."
+    },
+    "selector": {
+      "path": "data/universe_ranked.json",
+      "branch": "short_vol",
+      "top_n": 3,
+      "always": [
+        "SPY"
+      ],
+      "_why": "Unused while mode=fixed. Kept for funnel/selector experiments."
+    },
+    "usadapt": {
+      "db_path": "reports/data-profile/alpaca_data.duckdb",
+      "config": "us_adaptive/config.default.yaml",
+      "stage": "STAGE_0"
+    },
+    "underlyings": [
+      "SPY",
+      "QQQ",
+      "IWM",
+      "GLD",
+      "XLF",
+      "SMH",
+      "USO",
+      "SLV",
+      "TLT",
+      "IBIT",
+      "UNG",
+      "XLV"
+    ],
+    "_why": "Twelve names: the six with the longest option history plus the six added on 2026-08-30 that clear the pre-declared liquidity floor (>=20,000 option bars and >=100 expiries). ASHR, IEF, XLE and XLU are ingested but excluded -- 4,331 to 11,015 bars each, too thin to quote against live. The floor was declared in runs/_grid/PREREG_2026-08-30_breadth.md BEFORE any of those names was backtested, so it cannot be moved afterwards to improve a number. Index exposure on Alpaca is American physically-settled ETFs; VIX is a regime input only.",
+    "_why_underlyings": "The full FLOOR-12 universe, widened from SPY/QQQ/IWM by operator decision 2026-09-01. Three things measured on live quotes that a reader should have before trusting a number from this book:\n(1) SIX OF THESE NAMES HAVE NO OPTION HISTORY IN data/market.duckdb -- USO, SLV, TLT, IBIT, UNG, XLV were never ingested. They cannot be backtested at all, so every measured figure for this book covers at most the other six.\n(2) LIVE SPREADS: at this book's DTE 4-7 window, median bid-ask as a share of mid on in-band contracts was SPY 2.6%, QQQ 1.8%, IWM 9.2%, GLD 14.8% -- and XLF 60%, SMH 51% with ZERO contracts clearing the 8% execution cap. The six new names had no in-band contracts to measure on 2026-09-01 because none of them lists a Sep 8 expiry; they list Sep 9 and Sep 11, so they enter the window from 2026-09-02 onward and their spreads are still UNMEASURED. The execution cap is what decides whether they trade, and the decision log records which ones it refuses.\n(3) IBIT is removed at runtime by the skills layer as a crypto proxy (P13), so the live book is at most eleven names."
+  },
+  "strategy": {
+    "kind": "put_credit",
+    "_why": "Champion 2026-08-30: put credit verticals beat always-condor on the loaded book6 cell. Condor remains available as a diagnostic structure but is not the live book. Directional (β≈0.89 to SPY); flat_by contest deadline.",
+    "structure": "vertical",
+    "enabled_structures": [
+      "put_credit"
+    ],
+    "enable_debit": false,
+    "max_dte_s3": 12,
+    "min_credit_ratio_vertical": 0.08,
+    "min_dte": 4,
+    "max_dte": 7,
+    "target_delta": 0.15,
+    "delta_tolerance": 0.08,
+    "width": 5.0,
+    "width_pct": null,
+    "width_min": 1.0,
+    "min_credit_ratio": 0.15,
+    "max_credit_ratio": 0.6,
+    "side": "put",
+    "min_iv_rv_ratio": 1.2,
+    "vol_gate_iv": "short_leg",
+    "max_overnight_share": null,
+    "_why_max_overnight_share": "Feature-lab overnight gate killed (OOT/n). Stays null.",
+    "min_iv_har_ratio": null,
+    "_why_min_iv_har_ratio": "Champion cell has null. Condor-only iv_har floor from 2026-08-29 is off while live book is put-vert book6.",
+    "_why_vol_gate_iv": "short_leg IV vs trailing RV — same as backtest champion.",
+    "_why_vol_gate": "Champion uses IV/RV ≥ 1.0 on put verticals (1.2 was tuned on SPY condors and was too tight on this book).",
+    "rv_window": 21,
+    "_honesty": "Headline +31.3% ann @3% friction is in-sample after a large grid; α t≈1.13, β≈0.89. Live reproduces the cell mechanics, not a claim of significant alpha.",
+    "_why_dte": "4-7: the single variable under test against account B's 1-7. Second-worst of the four tenors measured on this book (see _comment); 8:15 measured best. Note this tenor is only tradable because flat_by was extended -- see _why_flat_by.",
+    "_why_delta": "0.15 / tolerance 0.08 -- the published run's own config.json, not run.py's 0.20/0.10 defaults.",
+    "_why_iv_rv": "1.2x trailing 21-session realized. This is THE finding of the condor research: unconditional premium selling measured -1.76% (-0.39% at zero friction, i.e. nothing), and gating on richness is what turns it positive. FLOOR-12 uses 1.0 because that was tuned for put verticals; 1.2 was tuned on these condors.",
+    "_why_structure": "Short put vertical. Directional by construction (beta +0.09), which is the point: it is the one non-neutral book of the three."
+  },
+  "risk": {
+    "max_risk_per_trade_pct": 0.02,
+    "max_concurrent_positions": 3,
+    "max_per_name": 1,
+    "max_contracts_per_trade": 20,
+    "daily_loss_halt_pct": 0.04,
+    "max_drawdown_halt_pct": 0.1,
+    "vol_target_pct": 0.25,
+    "vol_window": 21,
+    "vol_scale_min": 0.25,
+    "vol_scale_max": 2.0,
+    "_why_defined_risk_only": "Both legs, always. Max loss is width minus credit, known before entry, so sizing is exact rather than estimated.",
+    "_why_allocation": "Champion loading: 2% equity per trade × up to 3 tranches per name (different expiries) × book cap 20. Vol-target 25% scales the budget from trailing marked-equity vol (same idea as backtest/engine.risk_scale).",
+    "_why_halts": "Both thresholds sit at 0.99 in BACKTEST configs on purpose -- a halt truncates the sample and makes grid cells incomparable. Live is the opposite case and they must be armed: 4% daily, 15% drawdown, both measured on the MARKED curve, because a realised-cash curve cannot see a drawdown that has not been closed yet. A breach stops new entries and requires a human to clear agent/decisions/state.json.",
+    "_why_risk_size": "2.00% — same as the measured FLOOR-12 / book16 headline cell (+35.2% ann @3% friction in STRATEGY.md). The gap test (backtest/tail_test.py) prices a -5% overnight move at -36.4% of equity on the worst session; halts at -4% daily / -15% drawdown are armed live. Operator chose headline sizing over the 1.25% tail-conservative rung (+24.8% ann, gap -21.0%).",
+    "_why": "The measured run's limits: 2% of equity at risk per trade, 3 concurrent structures, one per name. Halts are 4% daily / 10% drawdown -- tighter than FLOOR-12's 15% because this book is smaller and its measured max drawdown was 3.45%."
+  },
+  "execution": {
+    "max_spread_pct_of_mid": 0.08,
+    "max_quote_age_s": 300,
+    "pending_order_timeout_min": 30,
+    "_why_pending_timeout": "A day limit order that has not filled after this many minutes and whose legs are not at the broker is retired from the registry, so a lost order id cannot occupy the position cap for the rest of the session.",
+    "_why_quote_age": "A leg whose latest quote is older than this is not priced; it is excluded from candidates and blocks exit evaluation (STALE_MARK -> no action, alert) rather than being traded on.",
+    "order_type": "limit",
+    "limit_price_mode": "mid",
+    "limit_slippage_pct": 0.02,
+    "time_in_force": "day",
+    "_why_never_market": "Indicative quotes are modelled, not a real book. A market order on this feed is reckless.",
+    "_why_client_order_id": "Alpaca rejects duplicate client_order_id, which is what makes a retry safe rather than double-filling.",
+    "_why": "Carried over from the live book unchanged: an 8%-of-mid spread cap and a 300s quote-age limit are properties of the venue, not of the strategy."
+  },
+  "exits": {
+    "take_profit_pct": 0.5,
+    "stop_loss_mult": 2.0,
+    "close_at_dte": 0,
+    "close_at_dte_time": "15:00",
+    "_why_stop": "Champion: stop off (99×). Defined-risk width already caps loss; SL 2× was harmful on put verticals in the exits grid.",
+    "_why_structure_level": "Take-profit and stop are evaluated on the WHOLE structure's executable close cost (short legs at the ask, long legs at the bid) against the credit actually filled -- the same arithmetic as backtest/engine.py. Per-leg unrealized P&L is never used: a condor is one position, not four.",
+    "_why_close_at_dte": "American physically settled. Live entries are DTE 4-7, so a position is closed ON its expiry day (close_at_dte=0) at close_at_dte_time ET rather than settling.",
+    "_why": "Take profit at 50% of credit, stop at 2x credit received -- the measured run's exits. Note this differs from FLOOR-12, whose stop is 99.0 (effectively off); the condor result was produced WITH a live stop."
+  },
+  "schedule": {
+    "cadence_minutes": 15,
+    "regular_hours_only": true,
+    "no_new_positions_within_minutes_of_close": 30,
+    "flat_by_date": "2026-09-18",
+    "event_blackout": [
+      {
+        "date": "2026-09-16",
+        "event": "FOMC"
+      },
+      {
+        "date": "2026-10-28",
+        "event": "FOMC"
+      },
+      {
+        "date": "2026-12-09",
+        "event": "FOMC"
+      }
+    ],
+    "_why_event_blackout": "No new entries while a listed release falls inside [today, today + max_dte]. FOMC only, by evidence.",
+    "_why_flat_by": "EXTENDED from 2026-09-03 to the September monthly expiry, deliberately, and this book is therefore NOT contest-flat. At DTE 4-7 every remaining session before Sep 3 asks for expiries after it, so the chain window clamped empty and the book could not open at all -- the tenor was untradeable, not merely unattractive. flat_by is per-rulebook, so accounts A and B remain at 2026-09-03 and still go flat on time; only this account may carry positions past the Sep 4 submission. If THIS account is the one being submitted, that is wrong and the tenor belongs on a different account."
+  },
+  "llm": {
+    "model": "claude-opus-5",
+    "max_tokens": 2000,
+    "max_tokens_classify": 200,
+    "effort": "low",
+    "_role": "CLASSIFIES the news context into enums (catalyst scope, jump severity, news clarity); deterministic code in agent/veto.py turns that into ALLOW/PASS per underlying and the code picks the candidate. The model never sees thresholds, sizing, P&L or legs, cannot size, cannot raise a limit and cannot skip a gate. Any malformed response, refusal, transport error or empty news feed is treated as PASS.",
+    "_cost": "One classification per distinct headline set per process (cached by content hash), system prompt sent with cache_control ephemeral, <=200 output tokens. A cycle whose headlines repeat costs nothing.",
+    "deterministic_fallback": false,
+    "_why_deterministic_fallback": "Without an ANTHROPIC_API_KEY the decision step PASSES. Set true only to run the agent as a pure rules engine (it then opens the highest-ranked candidate deterministically); the journal records which mode was used.",
+    "_no_temperature": "Sampling parameters are removed on current Claude models and return a 400. Determinism comes from the schema and the pre-filtered candidate list, not from temperature=0.",
+    "_structured_output": "The decision is constrained server-side by a JSON schema (output_config.format), so a malformed response is not a failure mode we have to parse around."
+  },
+  "skills": {
+    "dir": "skills",
+    "required": [
+      "options-core-patterns"
+    ],
+    "enforce_vix_regime": true,
+    "_why": "options-core-patterns is canon for underlying and structure choice. Code enforces P5 (no European index products), P8/V2 (VIX term-structure regime), P12 (close before expiry), V5 (no vol-ETP warehouse). The LLM classifies news only; it does not read the skill to pick a trade."
+  },
+  "_status": {
+    "validated": false,
+    "_why": "Measured at +4.35% / Sharpe 0.35 -- positive, but the second-worst of four tenors on this book. Deployed by operator decision 2026-09-01 with that stated."
+  }
+}

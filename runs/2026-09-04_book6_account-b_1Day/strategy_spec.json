@@ -1,0 +1,19 @@
+{
+  "name": "short-dated defined-risk vertical credit spread",
+  "structure": "vertical",
+  "vol_filter": "only enter when implied vol >= 1.2x trailing 21-session realized vol",
+  "underlying": "SPY",
+  "underlyings": [
+    "SPY",
+    "QQQ",
+    "IWM",
+    "GLD",
+    "XLF",
+    "SMH"
+  ],
+  "entry": "Sell the 0.15-delta strike (+/-0.08) in the nearest expiry 1-7 DTE; buy the strike $5 further OTM.",
+  "filters": "credit/width between 0.15 and 0.6",
+  "exit": "take profit at 50% of credit; stop at 2.0x credit; else hold to expiry.",
+  "sizing": "contracts sized so defined max loss <= 2.0% of equity",
+  "concurrency": 3
+}

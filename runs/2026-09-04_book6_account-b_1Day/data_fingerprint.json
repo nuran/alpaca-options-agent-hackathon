@@ -1,0 +1,26 @@
+{
+  "provider": "alpaca",
+  "access_method": "alpaca_cli",
+  "underlying": "SPY,QQQ,IWM,GLD,XLF,SMH",
+  "underlyings": [
+    "SPY",
+    "QQQ",
+    "IWM",
+    "GLD",
+    "XLF",
+    "SMH"
+  ],
+  "feed": "sip (underlying) / indicative (options)",
+  "adjustment": "split (underlying) -- NOT dividend-adjusted, so it matches option strikes",
+  "timeframe": "1Day",
+  "window": {
+    "start": "2024-01-22",
+    "end": "2026-08-26"
+  },
+  "option_bars_in_window": 1661101,
+  "option_close_sum": 11694473.65,
+  "option_first_ts": "2024-01-22",
+  "option_last_ts": "2026-08-26",
+  "underlying_bars_in_window": 3910,
+  "underlying_close_sum": 1349810.29
+}

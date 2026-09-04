@@ -1,0 +1,26 @@
+# Credentials -- NEVER commit. This repo is public; keys live only in a local
+# dotenv file created from the committed example. See README "Setup".
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# The market-data store. Rebuild it offline from the committed Parquet under
+# data/export/ with `make restore` -- that round trip is what makes a backtest
+# here reproducible without re-downloading 2.5 years of option bars.
+*.duckdb
+*.duckdb.wal
+
+# Raw API payloads saved per backtest run -- large and regenerable.
+runs/*/raw/
+
+# Cycle tapes record the raw broker responses of a real cycle (equity, positions,
+# order ids). Local by default.
+tapes/
+
+# macOS
+.DS_Store

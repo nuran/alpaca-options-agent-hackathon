@@ -1,0 +1,337 @@
+{
+  "champion": "2026-08-30_book16_frozen-b16_1Day",
+  "n_variants": 3,
+  "dsr": {
+    "sharpe": 1.3616900574533786,
+    "sr_star": 1.2591439107469116,
+    "dsr": 0.5627699414493343,
+    "n": 645,
+    "skew": -0.6891553028712624,
+    "kurtosis": 10.476763544897246,
+    "n_trials": 379,
+    "grid_cells": 376
+  },
+  "pbo": {
+    "pbo": 0.34285714285714286,
+    "splits": 70,
+    "variants": 3,
+    "periods": 644,
+    "median_logit": 0.0
+  },
+  "rolling": [
+    {
+      "start": "2024-02-02",
+      "end": "2024-05-02",
+      "return": -0.0037060442474010635,
+      "sharpe": 0.050916534714738365
+    },
+    {
+      "start": "2024-03-05",
+      "end": "2024-06-03",
+      "return": 0.021920775552926264,
+      "sharpe": 0.5189527306344387
+    },
+    {
+      "start": "2024-04-04",
+      "end": "2024-07-03",
+      "return": 0.03800312088742186,
+      "sharpe": 0.7568999320959269
+    },
+    {
+      "start": "2024-05-03",
+      "end": "2024-08-02",
+      "return": -0.0009903107636473063,
+      "sharpe": 0.09587131320111984
+    },
+    {
+      "start": "2024-06-04",
+      "end": "2024-09-03",
+      "return": -0.039389025662438626,
+      "sharpe": -0.5041445554467695
+    },
+    {
+      "start": "2024-07-05",
+      "end": "2024-10-02",
+      "return": -0.0252648588958021,
+      "sharpe": -0.24677003307453405
+    },
+    {
+      "start": "2024-08-05",
+      "end": "2024-10-31",
+      "return": 0.08395076345754582,
+      "sharpe": 1.3534653937779215
+    },
+    {
+      "start": "2024-09-04",
+      "end": "2024-12-02",
+      "return": 0.12141689728423288,
+      "sharpe": 2.053706853663793
+    },
+    {
+      "start": "2024-10-03",
+      "end": "2025-01-02",
+      "return": 0.08963446694786659,
+      "sharpe": 1.7636762501432945
+    },
+    {
+      "start": "2024-11-01",
+      "end": "2025-02-04",
+      "return": 0.18360659795332768,
+      "sharpe": 4.414832048112305
+    },
+    {
+      "start": "2024-12-03",
+      "end": "2025-03-06",
+      "return": 0.07650594960131896,
+      "sharpe": 1.335773921100015
+    },
+    {
+      "start": "2025-01-03",
+      "end": "2025-04-04",
+      "return": -0.07884993822246078,
+      "sharpe": -0.8636929211643509
+    },
+    {
+      "start": "2025-02-05",
+      "end": "2025-05-06",
+      "return": -0.1335876755483596,
+      "sharpe": -1.7024079005755157
+    },
+    {
+      "start": "2025-03-07",
+      "end": "2025-06-05",
+      "return": -0.020404957217181496,
+      "sharpe": -0.1259493821838345
+    },
+    {
+      "start": "2025-04-07",
+      "end": "2025-07-08",
+      "return": 0.1685214732238396,
+      "sharpe": 3.2562905668920163
+    },
+    {
+      "start": "2025-05-07",
+      "end": "2025-08-06",
+      "return": 0.23500195628840026,
+      "sharpe": 3.7808689723544453
+    },
+    {
+      "start": "2025-06-06",
+      "end": "2025-09-05",
+      "return": 0.2378780750620182,
+      "sharpe": 4.770456653453584
+    },
+    {
+      "start": "2025-07-09",
+      "end": "2025-10-06",
+      "return": 0.28844030783120655,
+      "sharpe": 5.077261774453358
+    },
+    {
+      "start": "2025-08-07",
+      "end": "2025-11-04",
+      "return": 0.24263945928059205,
+      "sharpe": 4.721124066911196
+    },
+    {
+      "start": "2025-09-08",
+      "end": "2025-12-04",
+      "return": 0.08890469647939936,
+      "sharpe": 1.471238994102877
+    },
+    {
+      "start": "2025-10-07",
+      "end": "2026-01-06",
+      "return": 0.02815094419443609,
+      "sharpe": 0.5438540708545089
+    },
+    {
+      "start": "2025-11-05",
+      "end": "2026-02-05",
+      "return": -0.08932208581745449,
+      "sharpe": -1.0776273904554037
+    },
+    {
+      "start": "2025-12-05",
+      "end": "2026-03-09",
+      "return": 0.06853874757823974,
+      "sharpe": 1.0572633289079172
+    },
+    {
+      "start": "2026-01-07",
+      "end": "2026-04-08",
+      "return": 0.08989134021533096,
+      "sharpe": 1.3119934876765675
+    },
+    {
+      "start": "2026-02-06",
+      "end": "2026-05-07",
+      "return": 0.24958180405395725,
+      "sharpe": 3.4766506158165886
+    },
+    {
+      "start": "2026-03-10",
+      "end": "2026-06-08",
+      "return": 0.12102088528923716,
+      "sharpe": 1.6432948396951594
+    },
+    {
+      "start": "2026-04-09",
+      "end": "2026-07-09",
+      "return": 0.09228637052871691,
+      "sharpe": 1.4181060680846151
+    },
+    {
+      "start": "2026-05-08",
+      "end": "2026-08-07",
+      "return": 0.12087088561828652,
+      "sharpe": 1.7704599886850914
+    }
+  ],
+  "variants": {
+    "2026-08-30_book16_alloc-pername_1Day": {
+      "trades": 1238,
+      "wins": 1118,
+      "losses": 120,
+      "win_rate": 0.9030694668820679,
+      "gross_profit": 335150.195802376,
+      "gross_loss": 213171.20559436388,
+      "profit_factor": 1.5722113822451318,
+      "avg_win": 299.7765615405868,
+      "avg_loss": 1776.4267132863656,
+      "avg_trade": 98.52907125041361,
+      "largest_win": 2397.9081001679997,
+      "largest_loss": -6660.46174839,
+      "expectancy": 98.5290712504138,
+      "initial_equity": 100000.0,
+      "final_equity": 221978.99020801246,
+      "total_return": 1.2197899020801244,
+      "annualized_return": 0.3648778789167768,
+      "sharpe": 1.3514926767844708,
+      "sortino": 1.0875102008001698,
+      "max_drawdown": -0.22491027162095867,
+      "max_drawdown_days": 106,
+      "trading_days": 646,
+      "_alt_basis": "cash",
+      "_alt": {
+        "total_return": 1.2197899020801244,
+        "sharpe": 1.9658651785849357,
+        "max_drawdown": -0.20672445017474317,
+        "annualized_return": 0.3648778789167768
+      }
+    },
+    "2026-08-30_book16_frozen-b16_1Day": {
+      "trades": 1238,
+      "wins": 1118,
+      "losses": 120,
+      "win_rate": 0.9030694668820679,
+      "gross_profit": 326771.32835122425,
+      "gross_loss": 207242.7968270799,
+      "profit_factor": 1.5767560241134801,
+      "avg_win": 292.282046825782,
+      "avg_loss": 1727.0233068923326,
+      "avg_trade": 96.54970236199038,
+      "largest_win": 2283.72200016,
+      "largest_loss": -6216.430965164,
+      "expectancy": 96.54970236199071,
+      "initial_equity": 100000.0,
+      "final_equity": 219528.53152414446,
+      "total_return": 1.1952853152414447,
+      "annualized_return": 0.35898041094814515,
+      "sharpe": 1.3606340743108742,
+      "sortino": 1.0972905636490708,
+      "max_drawdown": -0.21696976358059405,
+      "max_drawdown_days": 106,
+      "trading_days": 646,
+      "_alt_basis": "cash",
+      "_alt": {
+        "total_return": 1.1952853152414447,
+        "sharpe": 1.9721243893877602,
+        "max_drawdown": -0.19954416916608686,
+        "annualized_return": 0.35898041094814515
+      }
+    },
+    "2026-08-30_book6_champ-pv-b6_1Day": {
+      "trades": 1011,
+      "wins": 918,
+      "losses": 93,
+      "win_rate": 0.9080118694362018,
+      "gross_profit": 275645.3524234304,
+      "gross_loss": 174987.46303502587,
+      "profit_factor": 1.5752291486633911,
+      "avg_win": 300.2672684351094,
+      "avg_loss": 1881.585624032536,
+      "avg_trade": 99.56269969179428,
+      "largest_win": 2169.535900152,
+      "largest_loss": -6216.430965164,
+      "expectancy": 99.56269969179488,
+      "initial_equity": 100000.0,
+      "final_equity": 200657.88938840435,
+      "total_return": 1.0065788938840434,
+      "annualized_return": 0.3127104711572253,
+      "sharpe": 1.2737933879572811,
+      "sortino": 1.0085691804369568,
+      "max_drawdown": -0.19902656835650245,
+      "max_drawdown_days": 117,
+      "trading_days": 645,
+      "_alt_basis": "cash",
+      "_alt": {
+        "total_return": 1.0065788938840434,
+        "sharpe": 1.8662387203809088,
+        "max_drawdown": -0.19262206694677597,
+        "annualized_return": 0.3127104711572253
+      }
+    }
+  },
+  "caveats": [
+    "No historical option bid/ask exists: Alpaca serves no historical options quotes endpoint (/v1beta1/options/quotes returns 404, verified 2026-08-25). Entry and exit prices are derived from daily bar closes with a modelled friction, NOT from a real book. This is the single largest source of error in these results.",
+    "Fills are same-bar: a signal from day T's close is filled at day T's close with friction applied against the trade. The vendored skill flags same_bar as carrying look-ahead risk. It is used because daily bars are the only option history available; the friction sweep bounds the resulting optimism.",
+    "Greeks and implied volatility are not in the historical data. Delta is recovered by inverting Black-Scholes on the traded close, assuming European exercise, a constant 4% risk-free rate and a 1.2% dividend yield.",
+    "Option prices come from Alpaca's INDICATIVE feed, not OPRA. This account is not OPRA-entitled (feed=opra returns 403 'OPRA agreement is not signed'), so the underlying prints are modelled derivatives of the real tape, delayed 15 minutes.",
+    "Assignment, early exercise and pin risk are not modelled; expiring spreads are cash settled at intrinsic value.",
+    "Any position still open at the end of the window is marked at its full defined max loss, which is conservative rather than realistic.",
+    "Live/backtest exit divergence (documented, conservative-neutral): the live agent closes any structure still open on its expiry day at exits.close_at_dte_time ET with one mleg order; this daily-bar backtest cannot model an intraday close and settles at intrinsic instead. Take-profit and stop-loss use identical arithmetic in both (agent/structures.evaluate_exit == Engine.manage).",
+    "Macro blackout: entries are blocked when a listed event falls in [date, date + max_dte]; the default list is FOMC only (run.py --blackout). CPI/NFP dates in data/events.csv are rule-based approximations and were not adopted (see CHANGELOG 2026-08-28).",
+    "Daily option closes in this store cannot support a Black-Scholes P&L decomposition: recovered IV of a single contract moves a median ~1.7 vol points a day (real SPY is 0.5-1.5). The convexity-share gate is not computable here. Each run reports direction.json (P&L on up vs down underlying moves) instead. Do not copy a textbook hedge_gain or quadratic underlying impact -- this book does not trade the underlying, and option-spread friction is already in fills.py."
+  ],
+  "fingerprint": {
+    "provider": "alpaca",
+    "access_method": "alpaca_cli",
+    "underlying": "SPY,QQQ,IWM,GLD,XLF,SMH,USO,IEF,UNG,TLT,ASHR,XLE,XLU,IBIT,XLV,SLV",
+    "underlyings": [
+      "SPY",
+      "QQQ",
+      "IWM",
+      "GLD",
+      "XLF",
+      "SMH",
+      "USO",
+      "IEF",
+      "UNG",
+      "TLT",
+      "ASHR",
+      "XLE",
+      "XLU",
+      "IBIT",
+      "XLV",
+      "SLV"
+    ],
+    "feed": "sip (underlying) / indicative (options)",
+    "adjustment": "split (underlying) -- NOT dividend-adjusted, so it matches option strikes",
+    "timeframe": "1Day",
+    "window": {
+      "start": "2024-01-18",
+      "end": "2026-08-28"
+    },
+    "option_bars_in_window": 2746299,
+    "option_close_sum": 17820899.2399,
+    "option_first_ts": "2024-01-18",
+    "option_last_ts": "2026-08-28",
+    "underlying_bars_in_window": 10304,
+    "underlying_close_sum": 1747224.135
+  },
+  "window": {
+    "start": "2024-01-18",
+    "end": "2026-08-28"
+  }
+}

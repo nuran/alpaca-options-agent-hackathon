@@ -1,0 +1,204 @@
+# US-ADAPT v2.0 — pre-registered CONFIG. Any change = new version (bump `version`), never edit in place after first backtest/paper run.
+version: "2.4.0"
+nav_usd: 1000000
+db_path: alpaca_data.duckdb
+alpaca:
+  base_url: https://paper-api.alpaca.markets
+  data_url: https://data.alpaca.markets
+  feed_stock: iex          # switch to `sip` once subscribed
+  feed_option: indicative  # switch to `opra` once subscribed (mandatory before live)
+  # keys from env: APCA_API_KEY_ID / APCA_API_SECRET_KEY
+
+# ---------------------------------------------------------------- PRE-SELECTION FUNNEL
+preselect:
+  # L0 — eligibility (Alpaca flags, contract registry)
+  exchanges: [NYSE, NASDAQ, ARCA, BATS, AMEX, NYSEARCA]
+  require_flags: {tradable: true, marginable: true, shortable: true, easy_to_borrow: true}
+  require_american: true
+  reject_adjusted_contracts: true   # root_symbol != underlying_symbol => corporate action, out
+  min_price: 20.0
+  max_price: 2500.0
+  # L1 — chain structure (from contract census)
+  dte_min: 8
+  dte_max: 12
+  min_strikes_in_window_expiry: 12
+  require_penny_pilot: false        # ppind=true preferred (scored), not required
+  min_total_oi_window: 5000         # sum OI across contracts in window expiry (NULL OI counts 0)
+  # STAGE 1 — opportunity score across the universe (census ATM straddle vs trailing RV), before deep analysis  (v2.2)
+  stage1_top_n: 40
+  # L2 — OHLCV (needs >= min_history_days daily bars)
+  min_history_days: 260
+  min_dollar_adv_20d: 50000000      # $50M
+  max_gap_1y_abs: 0.12              # largest |overnight gap| over 1y; single stocks with earnings gaps fail here
+  max_rv20_yz: 0.80
+  earnings_calendar_required_for_stocks: true   # fail-closed: no earnings vintage => stocks excluded, ETFs pass
+  # L3 — chain snapshot (RTH quotes)
+  max_rel_spread_20d: 0.12          # (ask-bid)/mid at the 15-25 delta strikes
+  min_quote_size: 5
+  max_quote_age_s: 5
+  shortlist_size: 8
+  max_index_clones: 3               # beta>0.85 & corr>0.9 to SPY count as one cluster
+  # scoring weights (z-scored cross-section)
+  short_vol_score:
+    iv_over_rvf: 1.0
+    neg_iv_percentile: 0.7
+    term_slope: 0.5
+    dollar_vega_yield_per_cost: 1.0
+    penalty_mae_ratio: 1.0
+    penalty_gap: 0.7
+  long_convex_score:
+    rvf_over_iv: 1.0
+    compression_rv5_rv60: 0.8
+    efficiency_ratio: 0.5
+    penalty_spread: 0.7
+
+# ---------------------------------------------------------------- RATES (policy inputs, refresh weekly from FRED DTB3)
+rates:
+  r_annual: 0.043
+  r_source: "FRED DTB3 — set manually until fetcher added; forward F = S*exp((r-q)T), q = trailing-12m dividends/spot"
+
+# ---------------------------------------------------------------- VOL & FORECAST
+vol:
+  yz_window: 20
+  har_windows: [1, 5, 22]
+  har_refit_days: 500
+  har_refit_every_days: 5
+  har_purge_embargo_days: 5
+  mae_lookback_days: 63
+  forecast_pessimism_mult: 1.25   # EV must stay > 0 with RV_f * this
+  tail_df: 4                       # student-t df for terminal distribution (fat tails)
+
+# ---------------------------------------------------------------- REGIME
+regime:
+  vix_pct_window: 252
+  vix_pct_on: 0.70
+  vix_pct_red: 0.85
+  contango_ratio_max: 1.00   # VIX / VIX3M < 1 => contango
+  backwardation_ratio_red: 1.05
+  k_by_quintile: {1: 1.45, 2: 1.30, 3: 1.25, 4: 1.25, 5: 1.25}
+  k_long: 0.85               # IV_atm <= k_long * RV_f  => long-vol candidate (fallback)
+  k_long_by_quintile: {1: 0.85, 2: 0.85, 3: 0.85, 4: 0.80, 5: 0.75}   # v2.3: stricter when VIX already high (buying the top)
+  compression_rv5_rv60_max: 0.65
+  # POST_SHOCK (v2.1, profit-agent "post_shock_decay" book): after a RED episode allow short premium at half size when
+  # fear is measurably decelerating: vix_pct fell >= post_shock_pct_drop from its 10-session max, term back in contango,
+  # and rv5 < rv20 on the underlying (checked per ticker in scan).
+  post_shock_enabled: true
+  post_shock_pct_drop: 0.15
+  post_shock_lookback: 10
+  macro_events: [FOMC, CPI, NFP]
+
+# ---------------------------------------------------------------- STRUCTURES (S1-S5)
+structures:
+  enabled: [S1_PUT_VERTICAL, S1_CALL_VERTICAL, S2_IRON_CONDOR, S3_IRON_FLY, S4_DEBIT_VERTICAL, S5_LONG_STRADDLE, S6_LONG_STRANGLE]
+  # long-vol branch (v2.3): S5 ATM straddle (pure vol), S6 25d strangle, S4 debit vertical (directional convexity)
+  strangle_delta_targets: [0.25]
+  long_vol_min_p_move: 0.40  # P(|S_T - K| > debit + exit cost) under the HAR forecast must be >= this
+  long_vol_max_realized_move_frac: 1.5   # v2.4: |5d return| / (rv_f*sqrt(5/252)) above this => MOVE_ALREADY_REALIZED veto on long vol
+  s7_inner_delta: 0.25       # S7_REVERSE_IRON_CONDOR (RESEARCH_ONLY: add to `enabled` only after 4-leg fill evidence)
+  s7_outer_delta: 0.10
+  delta_short_max: 0.30
+  delta_short_min: 0.10
+  delta_targets: [0.28, 0.22, 0.16, 0.10]   # registered short-strike grid (per side)
+  mae_mult: 1.15
+  width_pct_grid: [0.01, 0.015, 0.02]
+  credit_width_min: 0.28
+  spread_credit_max: 0.10
+  edge_cost_mult: 5.0        # gross paper EV at mid / all-in round-trip friction (SHORT branch, v1.1)
+  edge_cost_mult_long: 2.0   # LONG-convexity branch (profit-agent book override: directional 1.5-2.0)
+  min_edge_on_margin: 0.02   # executable EV / margin over the trade's life
+  div_delta: 0.35
+  div_days: 2
+  s3_skew_flat_max: 1.10     # iron fly only when 25d put/call IV ratio <= this
+  s4_linear_benchmark: true  # debit vertical must beat delta-matched ETF/stock after costs
+  fees_per_contract: 0.65    # placeholder incl. regulatory; encode Alpaca schedule before go-live
+  max_legs: 4
+
+# ---------------------------------------------------------------- OBJECTIVE / CAPITAL VELOCITY  (v2.1, from profit-agent v2)
+objective:
+  ranking: pnl_per_capital_day      # pnl_per_capital_day | edge_on_margin  — EV per $ of max-loss per expected holding day
+  hold_model: theta_tp              # expected holding days = min(DTE - dte_close, credit*TP / |theta_struct|), floor 1
+  reservation_tbill_mult: 3.0       # hurdle: EV/margin/day >= mult * (r_annual/365)  — else keep the capital (NO_TRADE)
+  min_pnl_per_capital_day_bps_nav: 0.10   # per intent: EV_total / NAV / hold_days >= this (bps)
+  simplicity_tolerance_pct: 0.05    # prefer fewer legs when utility within 5% of the best
+  next_best_opportunity_cost: true  # V_miss in the execution plan = next-best candidate's utility
+
+# ---------------------------------------------------------------- SOFT PENALTIES (haircuts, not vetoes)  (v2.1)
+haircuts:
+  quote_size_below_min: 0.50        # size x0.5 instead of L3 fail when min quote size < preselect.min_quote_size but > 0
+  har_r2_below: {threshold: 0.05, mult: 0.50}   # HAR in-sample R2 < 0.05 => forecast ~ intercept => size x0.5
+  forecast_disagreement: {threshold: 0.30, mult: 0.50}  # |rv_f - rv_persist| / rv_f > 30% => model uncertainty haircut
+  bars_repaired: {threshold: 3, mult: 0.70}     # >= 3 repaired bars in the history => data-quality haircut
+  post_shock: 0.50                  # short premium in POST_SHOCK regime runs at half size
+  book_score_floor: 0.50            # realized/predicted EV ratio per structure family, clipped to [floor, 1.0]
+
+# ---------------------------------------------------------------- EXECUTION PLAN (fill model, calibrate from paper fills)  (v2.1)
+fill_model:
+  # P(fill within timeout) by starting limit expressed as fraction of the structure spread conceded from mid.
+  # Registered priors; recalibrated weekly from the `fills` ledger, never intraday.
+  p_fill_by_concession: {0.00: 0.35, 0.10: 0.50, 0.25: 0.70, 0.50: 0.85, 1.00: 0.97}
+  adverse_selection_frac_spread: 0.10   # expected extra cost when a passive limit is filled (paid on fill)
+
+# ---------------------------------------------------------------- RISK / SIZING
+risk:
+  pos_nav_pct: 0.015
+  ticker_nav_pct: 0.03
+  book_nav_pct: 0.06
+  vega_cap_nav_pct: 0.15
+  max_open_positions: 6
+  max_per_ticker: 2
+  index_cluster_nav_pct: 0.04       # aggregate max-loss of beta>0.85/corr>0.9 names (SPY cluster) <= 4% NAV
+  size_stage_mult: {STAGE_0: 0.25, STAGE_1: 0.5, STAGE_2: 1.0}
+  stage_up_after_trades: 20
+  stage_up_requires_zero_degrade_flags: true
+
+# ---------------------------------------------------------------- ADAPTIVE MANAGEMENT
+manage:
+  loop_minutes: 15
+  rth_start: "09:45"
+  rth_end: "15:55"
+  # short-premium
+  tp_by_dte_remaining: {">=6": 0.65, "3-5": 0.50, "<=2": 0.35}
+  sl_credit_mult: 1.00
+  delta_breach_short: 0.40         # |delta| of short leg -> close (gamma regime, don't wait for SL)
+  rv_break_mult: 1.50              # realized RV(3d) > mult * RV_f at entry => SIGNAL_FAILURE exit
+  dte_close: 2
+  close_time: "10:00"
+  # long-convexity
+  lc_tp_debit_mult: 1.00
+  lc_sl_debit_mult: 0.50
+  lc_dte_close: 3
+  no_rolls: true
+  no_averaging: true
+  # REPLACE_WITH_NEXT_BEST (v2.1): close an open position when a new candidate's EV/capital-day exceeds the position's
+  # residual EV/capital-day by more than the exit cost amortised over the remaining days, times this margin.
+  replace_enabled: true
+  replace_margin_mult: 1.5
+
+# ---------------------------------------------------------------- PORTFOLIO CONVEXITY OVERLAY (v2.4, profit-agent overlay book)
+overlay:
+  enabled: true
+  trigger_short_book_nav_pct: 0.04     # net short-premium contractual risk >= 4% NAV ...
+  trigger_vix_pct_rise_5d: 0.10        # ... AND VIX percentile rose >= 0.10 over 5 sessions (fear building, not yet RED)
+  instrument: SPY
+  structure: PUT_DEBIT_VERTICAL        # buy ~25d put, sell ~10d put, same DTE window
+  debit_cap_frac_of_open_credit: 0.10  # hedge budget: <= 10% of the credit currently held by the short book
+  es99_reduction_min_frac: 0.25        # keep only if it cuts the book's ES99 by >= 25% (checked by full reprice)
+  note: standalone EV of the overlay is expected NEGATIVE; it is kept only for portfolio survival (log-growth), never labeled alpha
+
+# ---------------------------------------------------------------- EXECUTION
+exec:
+  timeout_s: 300
+  step_frac_spread: 0.10
+  step_every_s: 60
+  floor_frac_spread: 0.25
+  max_attempts_per_ticker_day: 2
+  quote_stale_s: 5
+  market_orders_on_entry: false
+
+# ---------------------------------------------------------------- KILL SWITCHES
+kill:
+  daily_loss_nav_pct: 0.02
+  halt_sessions: 5
+  sl_streak: 3
+  attribution_convexity_share_min: 0.25
+  slippage_vs_model_max: 2.0

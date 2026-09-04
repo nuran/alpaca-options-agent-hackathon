@@ -1,0 +1,553 @@
+==============================================================================
+CYCLE 2026-09-01T20:54:29+04:00   SHADOW (nothing traded)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 179 priced   (dropped: unpriced 61, too_cheap 5, spread_too_wide 85)
+  SPY    -> BUILT vertical exp 2026-09-08 short 748.0 delta -0.1442 credit 0.405 ratio 0.081
+  SPY       vol gate   PASS  IV 0.1309 / RV 0.1026 = 1.276x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 204 priced   (dropped: unpriced 46, stale_quote 1, too_cheap 9, spread_too_wide 74)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 691.0 delta -0.153 credit 0.465 ratio 0.093
+  QQQ       vol gate   FAIL  IV 0.1846 / RV 0.1778 = 1.038x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 102 priced   (dropped: unpriced 31, too_cheap 4, spread_too_wide 29)
+  IWM    -> no structure built from 102 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 100 priced   (dropped: unpriced 23, spread_too_wide 71)
+  GLD    -> no structure built from 100 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 18 priced   (dropped: unpriced 35, stale_quote 5, too_cheap 2, spread_too_wide 36)
+  XLF    -> no structure built from 18 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 69 priced   (dropped: unpriced 40, spread_too_wide 91)
+  SMH    -> no structure built from 69 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-748  credit 0.405 ratio 0.081 qty 4 max_loss 1838.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US airstrikes on Iranian targets near the Strait of Hormuz with oil surging — active geopolitical escalation risk within the week.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T20:54:59+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 178 priced   (dropped: unpriced 61, too_cheap 9, spread_too_wide 82)
+  SPY    -> no structure built from 178 priced contracts (vertical builder declined)
+  QQQ    spot 716.76   chain 334 contracts -> 201 priced   (dropped: unpriced 46, stale_quote 1, too_cheap 6, spread_too_wide 80)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 691.0 delta -0.1505 credit 0.415 ratio 0.083
+  QQQ       vol gate   FAIL  IV 0.1833 / RV 0.1778 = 1.031x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 104 priced   (dropped: unpriced 31, too_cheap 1, spread_too_wide 30)
+  IWM    -> no structure built from 104 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 99 priced   (dropped: unpriced 23, spread_too_wide 72)
+  GLD    -> no structure built from 99 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 16 priced   (dropped: unpriced 35, stale_quote 5, too_cheap 2, spread_too_wide 38)
+  XLF    -> no structure built from 16 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 67 priced   (dropped: unpriced 39, spread_too_wide 94)
+  SMH    -> no structure built from 67 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 0
+
+  DECISION: PASS
+    rationale: no candidates passed the gates
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T21:10:00+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 168 priced   (dropped: unpriced 60, too_cheap 6, spread_too_wide 96)
+  SPY    -> no structure built from 168 priced contracts (vertical builder declined)
+  QQQ    spot 716.76   chain 334 contracts -> 192 priced   (dropped: unpriced 46, too_cheap 8, spread_too_wide 88)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 690.0 delta -0.1475 credit 0.47 ratio 0.094
+  QQQ       vol gate   FAIL  IV 0.1867 / RV 0.1778 = 1.05x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 99 priced   (dropped: unpriced 30, too_cheap 5, spread_too_wide 32)
+  IWM    -> no structure built from 99 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 101 priced   (dropped: unpriced 22, spread_too_wide 71)
+  GLD    -> no structure built from 101 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 23 priced   (dropped: unpriced 35, stale_quote 11, spread_too_wide 27)
+  XLF    -> no structure built from 23 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 64 priced   (dropped: unpriced 38, spread_too_wide 98)
+  SMH    -> no structure built from 64 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 0
+
+  DECISION: PASS
+    rationale: no candidates passed the gates
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T21:19:49+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 173 priced   (dropped: unpriced 61, too_cheap 8, spread_too_wide 88)
+  SPY    -> BUILT vertical exp 2026-09-08 short 748.0 delta -0.1542 credit 0.45 ratio 0.09
+  SPY       vol gate   PASS  IV 0.1339 / RV 0.1026 = 1.306x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 202 priced   (dropped: unpriced 46, too_cheap 7, spread_too_wide 79)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 690.0 delta -0.1473 credit 0.405 ratio 0.081
+  QQQ       vol gate   FAIL  IV 0.1851 / RV 0.1778 = 1.041x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 101 priced   (dropped: unpriced 30, too_cheap 3, spread_too_wide 32)
+  IWM    -> no structure built from 101 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-748  credit 0.45 ratio 0.09 qty 4 max_loss 1820.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US airstrikes on Iranian targets near the Strait of Hormuz with Iranian state TV confirming blasts; oil surging, escalating geopolitical/energy shock risk within the week.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T21:23:26+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 180 priced   (dropped: unpriced 61, too_cheap 10, spread_too_wide 79)
+  SPY    -> no structure built from 180 priced contracts (vertical builder declined)
+  QQQ    spot 716.76   chain 334 contracts -> 204 priced   (dropped: unpriced 46, too_cheap 4, spread_too_wide 80)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 690.0 delta -0.1462 credit 0.43 ratio 0.086
+  QQQ       vol gate   FAIL  IV 0.1849 / RV 0.1778 = 1.04x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 102 priced   (dropped: unpriced 30, too_cheap 2, spread_too_wide 32)
+  IWM    -> no structure built from 102 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 104 priced   (dropped: unpriced 22, spread_too_wide 68)
+  GLD    -> no structure built from 104 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 20 priced   (dropped: unpriced 35, stale_quote 10, too_cheap 1, spread_too_wide 30)
+  XLF    -> no structure built from 20 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 69 priced   (dropped: unpriced 39, spread_too_wide 92)
+  SMH    -> no structure built from 69 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 0
+
+  DECISION: PASS
+    rationale: no candidates passed the gates
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T21:25:21+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 186 priced   (dropped: unpriced 62, too_cheap 6, spread_too_wide 76)
+  SPY    -> BUILT vertical exp 2026-09-08 short 748.0 delta -0.1512 credit 0.41 ratio 0.082
+  SPY       vol gate   PASS  IV 0.1324 / RV 0.1026 = 1.291x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 205 priced   (dropped: unpriced 46, too_cheap 8, spread_too_wide 75)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 690.0 delta -0.1481 credit 0.41 ratio 0.082
+  QQQ       vol gate   FAIL  IV 0.1859 / RV 0.1778 = 1.046x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 99 priced   (dropped: unpriced 31, too_cheap 5, spread_too_wide 31)
+  IWM    -> no structure built from 99 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 107 priced   (dropped: unpriced 22, spread_too_wide 65)
+  GLD    -> no structure built from 107 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 19 priced   (dropped: unpriced 35, stale_quote 5, too_cheap 1, spread_too_wide 36)
+  XLF    -> no structure built from 19 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 73 priced   (dropped: unpriced 39, stale_quote 1, spread_too_wide 87)
+  SMH    -> no structure built from 73 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-748  credit 0.41 ratio 0.082 qty 4 max_loss 1836.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US airstrikes on Iranian targets near the Strait of Hormuz with confirmed blasts in southern Iran, driving an oil spike and broad geopolitical gap risk.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T21:40:58+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 179 priced   (dropped: unpriced 63, too_cheap 5, spread_too_wide 83)
+  SPY    -> BUILT vertical exp 2026-09-08 short 748.0 delta -0.1471 credit 0.415 ratio 0.083
+  SPY       vol gate   PASS  IV 0.1327 / RV 0.1026 = 1.294x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 208 priced   (dropped: unpriced 47, stale_quote 16, too_cheap 8, spread_too_wide 55)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 690.0 delta -0.1444 credit 0.44 ratio 0.088
+  QQQ       vol gate   FAIL  IV 0.183 / RV 0.1778 = 1.029x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 98 priced   (dropped: unpriced 31, too_cheap 4, spread_too_wide 33)
+  IWM    -> no structure built from 98 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 94 priced   (dropped: unpriced 22, spread_too_wide 78)
+  GLD    -> no structure built from 94 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 16 priced   (dropped: unpriced 35, stale_quote 7, too_cheap 4, spread_too_wide 34)
+  XLF    -> no structure built from 16 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 68 priced   (dropped: unpriced 38, spread_too_wide 94)
+  SMH    -> no structure built from 68 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-748  credit 0.415 ratio 0.083 qty 4 max_loss 1834.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US military strikes on Iranian targets near the Strait of Hormuz with threats of further escalation, driving oil surge and broad geopolitical gap risk.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T21:56:34+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 175 priced   (dropped: unpriced 64, stale_quote 5, too_cheap 3, spread_too_wide 83)
+  SPY    -> BUILT vertical exp 2026-09-08 short 748.0 delta -0.1527 credit 0.4 ratio 0.08
+  SPY       vol gate   PASS  IV 0.132 / RV 0.1026 = 1.287x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 207 priced   (dropped: unpriced 47, too_cheap 4, spread_too_wide 76)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 690.0 delta -0.1514 credit 0.45 ratio 0.09
+  QQQ       vol gate   FAIL  IV 0.1829 / RV 0.1778 = 1.029x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 98 priced   (dropped: unpriced 31, too_cheap 4, spread_too_wide 33)
+  IWM    -> BUILT vertical exp 2026-09-08 short 282.0 delta -0.1253 credit 0.175 ratio 0.087
+  IWM       vol gate   PASS  IV 0.1972 / RV 0.1443 = 1.366x  (need >= 1.2x, using short_leg)
+  GLD    spot 408.42   chain 194 contracts -> 98 priced   (dropped: unpriced 22, spread_too_wide 74)
+  GLD    -> no structure built from 98 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 18 priced   (dropped: unpriced 35, too_cheap 1, spread_too_wide 42)
+  XLF    -> no structure built from 18 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 67 priced   (dropped: unpriced 38, spread_too_wide 95)
+  SMH    -> no structure built from 67 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 2
+    IWM-P-2026-09-08-282  credit 0.175 ratio 0.087 qty 10 max_loss 1825.0
+    SPY-P-2026-09-08-748  credit 0.4 ratio 0.08 qty 4 max_loss 1840.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US military strikes on Iranian targets near the Strait of Hormuz with threats of further escalation, driving oil surge and broad geopolitical gap risk.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T22:12:04+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 180 priced   (dropped: unpriced 63, stale_quote 6, too_cheap 11, spread_too_wide 70)
+  SPY    -> BUILT vertical exp 2026-09-08 short 748.0 delta -0.1547 credit 0.43 ratio 0.086
+  SPY       vol gate   PASS  IV 0.1345 / RV 0.1026 = 1.311x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 213 priced   (dropped: unpriced 47, too_cheap 12, spread_too_wide 62)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 690.0 delta -0.1538 credit 0.43 ratio 0.086
+  QQQ       vol gate   FAIL  IV 0.1839 / RV 0.1778 = 1.034x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 98 priced   (dropped: unpriced 29, too_cheap 1, spread_too_wide 38)
+  IWM    -> BUILT vertical exp 2026-09-08 short 283.0 delta -0.15 credit 0.1 ratio 0.1
+  IWM       vol gate   PASS  IV 0.1943 / RV 0.1443 = 1.346x  (need >= 1.2x, using short_leg)
+  GLD    spot 408.42   chain 194 contracts -> 103 priced   (dropped: unpriced 21, spread_too_wide 70)
+  GLD    -> no structure built from 103 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 20 priced   (dropped: unpriced 35, stale_quote 9, too_cheap 1, spread_too_wide 31)
+  XLF    -> no structure built from 20 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 71 priced   (dropped: unpriced 37, spread_too_wide 92)
+  SMH    -> no structure built from 71 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 2
+    IWM-P-2026-09-08-283  credit 0.1 ratio 0.1 qty 20 max_loss 1800.0
+    SPY-P-2026-09-08-748  credit 0.43 ratio 0.086 qty 4 max_loss 1828.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US military strikes on Iranian targets near the Strait of Hormuz with threats of further escalation, spiking oil and creating broad geopolitical gap risk.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T22:27:36+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 180 priced   (dropped: unpriced 65, too_cheap 7, spread_too_wide 78)
+  SPY    -> BUILT vertical exp 2026-09-08 short 747.0 delta -0.1459 credit 0.41 ratio 0.082
+  SPY       vol gate   PASS  IV 0.136 / RV 0.1026 = 1.326x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 215 priced   (dropped: unpriced 47, too_cheap 6, spread_too_wide 66)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 689.0 delta -0.1504 credit 0.46 ratio 0.092
+  QQQ       vol gate   FAIL  IV 0.1871 / RV 0.1778 = 1.052x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 102 priced   (dropped: unpriced 30, too_cheap 1, spread_too_wide 33)
+  IWM    -> no structure built from 102 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 103 priced   (dropped: unpriced 22, spread_too_wide 69)
+  GLD    -> no structure built from 103 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 16 priced   (dropped: unpriced 35, stale_quote 12, too_cheap 2, spread_too_wide 31)
+  XLF    -> no structure built from 16 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 76 priced   (dropped: unpriced 38, spread_too_wide 86)
+  SMH    -> no structure built from 76 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-747  credit 0.41 ratio 0.082 qty 4 max_loss 1836.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US military strikes on Iranian targets near the Strait of Hormuz with threats of further attacks, driving oil higher — a live geopolitical escalation risk within the 7-day window.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T22:43:05+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 177 priced   (dropped: unpriced 63, too_cheap 3, spread_too_wide 87)
+  SPY    -> BUILT vertical exp 2026-09-08 short 745.0 delta -0.1486 credit 0.47 ratio 0.094
+  SPY       vol gate   PASS  IV 0.1447 / RV 0.1026 = 1.411x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 224 priced   (dropped: unpriced 47, too_cheap 7, spread_too_wide 56)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 686.0 delta -0.1481 credit 0.48 ratio 0.096
+  QQQ       vol gate   FAIL  IV 0.1997 / RV 0.1778 = 1.123x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 103 priced   (dropped: unpriced 29, too_cheap 4, spread_too_wide 30)
+  IWM    -> no structure built from 103 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 113 priced   (dropped: unpriced 22, spread_too_wide 59)
+  GLD    -> no structure built from 113 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 23 priced   (dropped: unpriced 35, too_cheap 2, spread_too_wide 36)
+  XLF    -> no structure built from 23 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 71 priced   (dropped: unpriced 38, spread_too_wide 91)
+  SMH    -> no structure built from 71 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-745  credit 0.47 ratio 0.094 qty 4 max_loss 1812.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US military strikes on Iranian targets near the Strait of Hormuz with Trump threatening further escalation, driving oil higher alongside rising global bond yields.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T22:58:35+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 182 priced   (dropped: unpriced 62, too_cheap 12, spread_too_wide 74)
+  SPY    -> BUILT vertical exp 2026-09-08 short 746.0 delta -0.1462 credit 0.445 ratio 0.089
+  SPY       vol gate   PASS  IV 0.1412 / RV 0.1026 = 1.377x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 212 priced   (dropped: unpriced 47, too_cheap 7, spread_too_wide 68)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 688.0 delta -0.1517 credit 0.405 ratio 0.081
+  QQQ       vol gate   FAIL  IV 0.1929 / RV 0.1778 = 1.085x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 103 priced   (dropped: unpriced 29, too_cheap 4, spread_too_wide 30)
+  IWM    -> no structure built from 103 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 118 priced   (dropped: unpriced 22, spread_too_wide 54)
+  GLD    -> BUILT vertical exp 2026-09-08 short 386.0 delta -0.1779 credit 0.5 ratio 0.125
+  GLD       vol gate   FAIL  IV 0.2362 / RV 0.2716 = 0.87x  (need >= 1.2x, using short_leg)
+  XLF    spot 57.71   chain 96 contracts -> 17 priced   (dropped: unpriced 35, stale_quote 15, too_cheap 1, spread_too_wide 28)
+  XLF    -> no structure built from 17 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 69 priced   (dropped: unpriced 38, spread_too_wide 93)
+  SMH    -> no structure built from 69 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-746  credit 0.445 ratio 0.089 qty 4 max_loss 1822.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US military strikes on Iranian targets near the Strait of Hormuz with Trump threatening harder attacks, driving oil higher amid rising global yields — an escalating geopolitical shock within the 7-day window.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T23:14:10+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 182 priced   (dropped: unpriced 66, too_cheap 8, spread_too_wide 74)
+  SPY    -> BUILT vertical exp 2026-09-08 short 747.0 delta -0.148 credit 0.4 ratio 0.08
+  SPY       vol gate   PASS  IV 0.1372 / RV 0.1026 = 1.338x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 207 priced   (dropped: unpriced 47, too_cheap 8, spread_too_wide 72)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 689.0 delta -0.1495 credit 0.435 ratio 0.087
+  QQQ       vol gate   FAIL  IV 0.1897 / RV 0.1778 = 1.067x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 101 priced   (dropped: unpriced 30, too_cheap 1, spread_too_wide 34)
+  IWM    -> no structure built from 101 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 109 priced   (dropped: unpriced 22, spread_too_wide 63)
+  GLD    -> no structure built from 109 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 20 priced   (dropped: unpriced 35, stale_quote 9, too_cheap 1, spread_too_wide 31)
+  XLF    -> no structure built from 20 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 70 priced   (dropped: unpriced 38, spread_too_wide 92)
+  SMH    -> no structure built from 70 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-747  credit 0.4 ratio 0.08 qty 4 max_loss 1840.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): US military strikes on Iranian targets near the Strait of Hormuz with threats of larger attacks, oil surging and yields climbing — escalating geopolitical shock.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T23:29:39+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  MARKET ANALYSIS -- every name the agent looked at
+  ----------------------------------------------------------------------------
+  SPY    spot 767.05   chain 330 contracts -> 185 priced   (dropped: unpriced 65, too_cheap 5, spread_too_wide 75)
+  SPY    -> BUILT vertical exp 2026-09-08 short 747.0 delta -0.1511 credit 0.47 ratio 0.094
+  SPY       vol gate   PASS  IV 0.1397 / RV 0.1026 = 1.362x  (need >= 1.2x, using short_leg)
+  QQQ    spot 716.76   chain 334 contracts -> 211 priced   (dropped: unpriced 49, too_cheap 8, spread_too_wide 66)
+  QQQ    -> BUILT vertical exp 2026-09-08 short 689.0 delta -0.1457 credit 0.42 ratio 0.084
+  QQQ       vol gate   FAIL  IV 0.1903 / RV 0.1778 = 1.07x  (need >= 1.2x, using short_leg)
+  IWM    spot 293.93   chain 166 contracts -> 99 priced   (dropped: unpriced 30, too_cheap 5, spread_too_wide 32)
+  IWM    -> no structure built from 99 priced contracts (vertical builder declined)
+  GLD    spot 408.42   chain 194 contracts -> 113 priced   (dropped: unpriced 22, spread_too_wide 59)
+  GLD    -> no structure built from 113 priced contracts (vertical builder declined)
+  XLF    spot 57.71   chain 96 contracts -> 18 priced   (dropped: unpriced 35, stale_quote 9, spread_too_wide 34)
+  XLF    -> no structure built from 18 priced contracts (vertical builder declined)
+  SMH    spot 556.63   chain 200 contracts -> 65 priced   (dropped: unpriced 37, spread_too_wide 98)
+  SMH    -> no structure built from 65 priced contracts (vertical builder declined)
+  USO    spot 133.7   chain 0 contracts -> 0 priced   (dropped: none)
+  USO    -> no structure built from 0 priced contracts (vertical builder declined)
+  SLV    spot 60.13   chain 0 contracts -> 0 priced   (dropped: none)
+  SLV    -> no structure built from 0 priced contracts (vertical builder declined)
+  TLT    spot 82.52   chain 0 contracts -> 0 priced   (dropped: none)
+  TLT    -> no structure built from 0 priced contracts (vertical builder declined)
+  UNG    spot 10.54   chain 0 contracts -> 0 priced   (dropped: none)
+  UNG    -> no structure built from 0 priced contracts (vertical builder declined)
+  XLV    spot 170.54   chain 0 contracts -> 0 priced   (dropped: none)
+  XLV    -> no structure built from 0 priced contracts (vertical builder declined)
+
+  SURVIVING CANDIDATES: 1
+    SPY-P-2026-09-08-747  credit 0.47 ratio 0.094 qty 4 max_loss 1812.0
+
+  DECISION: PASS
+    rationale: veto (catalyst): Escalating US military strikes on Iran near the Strait of Hormuz with threats of larger attacks, spiking oil and raising broad geopolitical gap risk.
+    validation: {"passed": false, "errors": []}
+
+==============================================================================
+CYCLE 2026-09-01T23:45:07+04:00   LIVE (paper)
+==============================================================================
+  book      putcr-c47   account PA3UU4TX8Y3K
+  account   equity $100,000.00   day P&L $+0.00 (+0.00%)
+            options BP $100,000.00   open positions 0   structures 0
+  risk gate may_open=True
+
+  SURVIVING CANDIDATES: 0
+
+  DECISION: NONE
+

@@ -1,0 +1,18 @@
+{
+  "method_caveats": [
+    "No historical option bid/ask exists: Alpaca serves no historical options quotes endpoint (/v1beta1/options/quotes returns 404, verified 2026-08-25). Entry and exit prices are derived from daily bar closes with a modelled friction, NOT from a real book. This is the single largest source of error in these results.",
+    "Fills are same-bar: a signal from day T's close is filled at day T's close with friction applied against the trade. The vendored skill flags same_bar as carrying look-ahead risk. It is used because daily bars are the only option history available; the friction sweep bounds the resulting optimism.",
+    "Greeks and implied volatility are not in the historical data. Delta is recovered by inverting Black-Scholes on the traded close, assuming European exercise, a constant 4% risk-free rate and a 1.2% dividend yield.",
+    "Option prices come from Alpaca's INDICATIVE feed, not OPRA. This account is not OPRA-entitled (feed=opra returns 403 'OPRA agreement is not signed'), so the underlying prints are modelled derivatives of the real tape, delayed 15 minutes.",
+    "Assignment, early exercise and pin risk are not modelled; expiring spreads are cash settled at intrinsic value.",
+    "Any position still open at the end of the window is marked at its full defined max loss, which is conservative rather than realistic.",
+    "Live/backtest exit divergence (documented, conservative-neutral): the live agent closes any structure still open on its expiry day at exits.close_at_dte_time ET with one mleg order; this daily-bar backtest cannot model an intraday close and settles at intrinsic instead. Take-profit and stop-loss use identical arithmetic in both (agent/structures.evaluate_exit == Engine.manage).",
+    "Macro blackout: entries are blocked when a listed event falls in [date, date + max_dte]; the default list is FOMC only (run.py --blackout). CPI/NFP dates in data/events.csv are rule-based approximations and were not adopted (see CHANGELOG 2026-08-28).",
+    "Daily option closes in this store cannot support a Black-Scholes P&L decomposition: recovered IV of a single contract moves a median ~1.7 vol points a day (real SPY is 0.5-1.5). The convexity-share gate is not computable here. Each run reports direction.json (P&L on up vs down underlying moves) instead. Do not copy a textbook hedge_gain or quadratic underlying impact -- this book does not trade the underlying, and option-spread friction is already in fills.py."
+  ],
+  "engine_warnings": [
+    "macro blackout removed 97 of 504 candidates (19%), judged per candidate against its own expiry rather than the DTE ceiling"
+  ],
+  "engine_warning_count": 1,
+  "halted": false
+}

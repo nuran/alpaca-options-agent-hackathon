@@ -1,0 +1,18 @@
+{
+  "url": "https://files.alpaca.markets/disclosures/library/BrokFeeSched.pdf",
+  "revision_date": "unknown -- not re-fetched for this run",
+  "modeled_categories": [
+    "OCC clearing",
+    "ORF",
+    "SEC Section 31 (sells)",
+    "FINRA TAF (sells)"
+  ],
+  "excluded_categories": [
+    "commissions (Alpaca charges $0 on options)",
+    "ADR pass-through (not applicable to index ETFs)",
+    "borrow / margin interest (defined-risk spreads post no borrow)",
+    "exercise & assignment handling beyond the modeled per-contract fee",
+    "taxes"
+  ],
+  "extracted_at": "2026-09-04T10:28:46.156126"
+}

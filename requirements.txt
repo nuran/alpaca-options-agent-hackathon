@@ -1,0 +1,11 @@
+# Python 3.12+ (developed on 3.14.5).
+#
+# No Alpaca SDK. This agent talks to Alpaca through the official CLI, which the
+# hackathon rules require, and uses plain `requests` for the two REST calls the CLI
+# does not cover. Install the CLI separately -- see README "Setup".
+
+duckdb>=1.0        # the market-data store: columnar, single file, no server
+numpy>=1.26        # array maths in the backtest engine and the vol models
+requests>=2.31     # REST calls in alpaca/_common.py and the LLM classification step
+pyyaml>=6.0        # us_adaptive/ configuration
+scipy>=1.11        # Student-t sampling in us_adaptive/

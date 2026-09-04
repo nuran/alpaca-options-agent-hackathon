@@ -1,0 +1,203 @@
+symbol,bucket,kind,expiry_tier,total_oi,strikes,penny,factor,event_mode,name
+SPY,CORE,etf,13+ — dailies,10009750,469,5960,,False,State Street SPDR S&P 500 ETF Trust
+QQQ,CORE,etf,13+ — dailies,6207856,386,5662,,False,"Invesco QQQ Trust, Series 1"
+IWM,CORE,etf,13+ — dailies,4568011,231,2856,,False,iShares Russell 2000 ETF
+GLD,CORE,etf,13+ — dailies,3856940,346,4156,,False,"SPDR Gold Trust, SPDR Gold Shares"
+XLF,CORE,etf,13+ — dailies,3851570,61,1246,,False,State Street Financial Select Sector SPDR ETF
+SMH,CORE,etf,13+ — dailies,1459854,224,3666,,False,VanEck Semiconductor ETF
+NVDA,EXTENDED,stock,7-12,8171925,113,1538,,True,NVIDIA Corporation Common Stock
+TLT,EXTENDED,etf,7-12,7860915,83,1006,,False,iShares 20 Year Treasury Bond ETF
+HYG,EXTENDED,etf,7-12,4961618,52,558,,False,iShares iBoxx $ High Yield Corporate Bond ETF
+IBIT,EXTENDED,etf,7-12,4419020,134,1334,crypto_proxy,False,iShares Bitcoin Trust ETF Shares
+SLV,EXTENDED,etf,7-12,4089123,206,2220,,False,iShares Silver Trust
+INTC,EXTENDED,stock,7-12,3416412,141,1462,,True,Intel Corporation Common Stock
+NFLX,EXTENDED,stock,7-12,3142218,263,1550,,True,"Netflix, Inc. Common Stock"
+TSLA,EXTENDED,stock,7-12,2927386,194,2528,,True,"Tesla, Inc. Common Stock"
+AAPL,EXTENDED,stock,7-12,2743630,123,1502,,True,Apple Inc. Common Stock
+EEM,EXTENDED,etf,7-12,2699141,92,932,,False,iShares MSCI Emerging Markets ETF
+SPCX,EXTENDED,stock,7-12,2590312,151,1406,,True,Space Exploration Technologies Corp. Class A Com
+XLE,EXTENDED,etf,7-12,2493439,88,836,,False,State Street Energy Select Sector SPDR ETF
+NOK,EXTENDED,stock,7-12,2489941,51,474,,True,Nokia Corporation
+SOFI,EXTENDED,stock,7-12,2488394,51,438,,True,"SoFi Technologies, Inc. Common Stock"
+AMZN,EXTENDED,stock,7-12,2437988,78,1110,,True,"Amazon.com, Inc. Common Stock"
+META,EXTENDED,stock,7-12,2097600,259,3208,,True,"Meta Platforms, Inc. Class A Common Stock"
+EWZ,EXTENDED,etf,7-12,2011319,53,544,,False,iShares MSCI Brazil ETF
+MSFT,EXTENDED,stock,7-12,1961050,145,1762,,True,Microsoft Corporation Common Stock
+PLTR,EXTENDED,stock,7-12,1937454,132,1078,,True,Palantir Technologies Inc. Class A Common Stock
+ETHA,EXTENDED,etf,7-12,1872680,75,666,crypto_proxy,False,iShares Ethereum Trust ETF Shares
+GOOGL,EXTENDED,stock,7-12,1862093,151,1934,,True,Alphabet Inc. Class A Common Stock
+FXI,EXTENDED,etf,7-12,1855905,60,528,,False,iShares China Large-Cap ETF
+MSTR,EXTENDED,stock,7-12,1834813,206,1382,crypto_proxy,True,Strategy Inc Common Stock Class A
+PCG,EXTENDED,stock,7-12,1831584,50,424,,True,PG&E Corporation
+WBD,EXTENDED,stock,7-12,1812558,48,448,,True,"Warner Bros. Discovery, Inc. Series A Common Sto"
+DRAM,EXTENDED,etf,7-12,1785272,111,1232,,False,Roundhill Memory ETF
+ORCL,EXTENDED,stock,7-12,1783937,104,884,,True,Oracle Corp
+MU,EXTENDED,stock,7-12,1753884,393,4956,,True,"Micron Technology, Inc. Common Stock"
+ASST,EXTENDED,stock,7-12,1753822,73,764,,True,"Strive, Inc. Class A Common Stock"
+AMD,EXTENDED,stock,7-12,1693553,233,3028,,True,"Advanced Micro Devices, Inc. Common Stock"
+IREN,EXTENDED,stock,7-12,1689835,87,750,crypto_proxy,True,IREN Limited Ordinary Shares
+KWEB,EXTENDED,etf,7-12,1670087,64,546,,False,KraneShares CSI China Internet ETF
+WULF,EXTENDED,stock,7-12,1668914,65,572,crypto_proxy,True,TeraWulf Inc. Common Stock
+PFE,EXTENDED,stock,7-12,1665874,42,404,,True,Pfizer Inc.
+BABA,EXTENDED,stock,7-12,1587400,112,1024,,True,Alibaba Group Holding Limited American Depositar
+SMCI,EXTENDED,stock,7-12,1569663,100,742,,True,"Super Micro Computer, Inc. Common Stock"
+GDX,EXTENDED,etf,7-12,1534197,138,1316,,False,VanEck Gold Miners ETF
+ONDS,EXTENDED,stock,7-12,1484507,43,380,,True,Ondas Inc. Common Stock
+NKE,EXTENDED,stock,7-12,1478169,68,544,,True,"Nike, Inc."
+RIVN,EXTENDED,stock,7-12,1385624,53,474,,True,"Rivian Automotive, Inc. Class A Common Stock"
+CRWV,EXTENDED,stock,7-12,1382857,121,951,,True,"CoreWeave, Inc. Class A Common Stock"
+LQD,EXTENDED,etf,7-12,1375935,67,674,,False,iShares iBoxx $ Investment Grade Corporate Bond 
+GME,EXTENDED,stock,7-12,1371576,58,664,,True,GameStop Corp. Class A
+BAC,EXTENDED,stock,7-12,1362565,58,476,,True,Bank of America Corporation
+PYPL,EXTENDED,stock,7-12,1328979,82,558,,True,"PayPal Holdings, Inc. Common Stock"
+TQQQ,EXTENDED,etf,7-12,1305360,162,1246,leveraged,False,ProShares UltraPro QQQ
+CORZ,EXTENDED,stock,7-12,1294097,57,508,crypto_proxy,True,"Core Scientific, Inc. Common Stock"
+AVGO,EXTENDED,stock,7-12,1274904,156,1528,,True,Broadcom Inc. Common Stock
+BMNR,EXTENDED,stock,7-12,1271013,73,558,crypto_proxy,True,"BitMine Immersion Technologies, Inc."
+MARA,EXTENDED,stock,7-12,1263863,49,444,crypto_proxy,True,"MARA Holdings, Inc. Common Stock"
+KRE,EXTENDED,etf,7-12,1223703,75,596,,False,State Street SPDR S&P Regional Banking ETF
+PBR,EXTENDED,stock,7-12,1217057,46,422,,True,PETROLEO BRASILEIRO S.A.-PETROBRAS ADS (REP 1 CO
+CIFR,EXTENDED,stock,7-12,1188778,63,662,crypto_proxy,True,Cipher Digital Inc. Common Stock
+F,EXTENDED,stock,7-12,1161012,54,448,,True,Ford Motor Company
+VALE,EXTENDED,stock,7-12,1113599,44,384,,True,VALE S.A.
+SOXL,EXTENDED,etf,7-12,1112858,263,2514,leveraged,False,Direxion Daily Semiconductor Bull 3X ETF
+TSM,EXTENDED,stock,7-12,1101233,131,1104,,True,Taiwan Semiconductor Manufacturing Company Ltd.
+GOOG,EXTENDED,stock,7-12,1100666,106,1026,,True,Alphabet Inc. Class C Capital Stock
+HOOD,EXTENDED,stock,7-12,1092083,114,896,crypto_proxy,True,"Robinhood Markets, Inc. Class A Common Stock"
+PSKY,EXTENDED,stock,7-12,1063744,46,354,,True,Paramount Skydance Corporation Class B Common St
+AAL,EXTENDED,stock,7-12,1050254,44,406,,True,American Airlines Group Inc. Common Stock
+USO,EXTENDED,etf,7-12,1019803,204,1952,,False,"United States Oil Fund, LP"
+MRVL,EXTENDED,stock,7-12,968777,131,1042,,True,"Marvell Technology, Inc. Common Stock"
+NBIS,EXTENDED,stock,7-12,952176,127,1016,,True,Nebius Group N.V. Class A Ordinary Shares
+CMCSA,EXTENDED,stock,7-12,946246,50,466,,True,Comcast Corporation Class A Common Stock
+TSLL,EXTENDED,etf,7-12,929789,113,656,leveraged,False,Direxion Shares ETF Trust Direxion Daily TSLA Bu
+XLU,EXTENDED,etf,7-12,913878,54,490,,False,State Street Utilities Select Sector SPDR ETF
+NVO,EXTENDED,stock,7-12,905619,74,516,,True,Novo-Nordisk A/S
+POET,EXTENDED,stock,7-12,898962,55,430,,True,POET Technologies Inc. Common Shares
+WMT,EXTENDED,stock,7-12,847001,76,620,,True,Walmart Inc. Common Stock
+UBER,EXTENDED,stock,7-12,834712,67,546,,True,"Uber Technologies, Inc."
+EFA,EXTENDED,etf,7-12,816643,112,802,,False,iShares MSCI EAFE ETF
+VZ,EXTENDED,unclassified,7-12,812506,51,448,,False,Verizon Communications
+RKLB,EXTENDED,stock,7-12,811821,99,706,,True,Rocket Lab Corporation Common Stock
+T,EXTENDED,stock,7-12,810430,42,382,,True,AT&T Inc.
+LCID,EXTENDED,stock,7-12,801570,43,396,,True,"Lucid Group, Inc. Common Stock"
+RKT,EXTENDED,stock,7-12,786933,91,396,,True,"Rocket Companies, Inc."
+FCX,EXTENDED,stock,7-12,783689,70,544,,True,Freeport-McMoran Inc.
+NOW,EXTENDED,stock,7-12,759936,155,1154,,True,"SERVICENOW, INC."
+ASTS,EXTENDED,stock,7-12,757591,86,652,,True,"AST SpaceMobile, Inc. Class A Common Stock"
+RIOT,EXTENDED,stock,7-12,754832,59,568,crypto_proxy,True,"Riot Platforms, Inc. Common Stock"
+COIN,EXTENDED,stock,7-12,749908,162,1260,crypto_proxy,True,"Coinbase Global, Inc. Class A Common Stock"
+TTD,EXTENDED,stock,7-12,726621,94,614,,True,"The Trade Desk, Inc. Class A Common Stock"
+CLSK,EXTENDED,stock,7-12,723951,48,470,crypto_proxy,True,"CleanSpark, Inc. Common Stock"
+IGV,EXTENDED,etf,7-12,718470,115,852,,False,iShares Expanded Tech-Software Sector ETF
+BE,EXTENDED,stock,7-12,715817,134,1082,,True,Bloom Energy Corporation
+CRWD,EXTENDED,stock,7-12,715461,120,1212,,True,"CrowdStrike Holdings, Inc. Class A Common Stock"
+HL,EXTENDED,stock,7-12,714945,68,516,,True,Hecla Mining Company
+CSCO,EXTENDED,stock,7-12,708380,81,722,,True,"Cisco Systems, Inc. Common Stock (DE)"
+JD,EXTENDED,stock,7-12,700969,50,452,,True,"JD.com, Inc. American Depositary Shares"
+APLD,EXTENDED,stock,7-12,696003,72,606,crypto_proxy,True,Applied Digital Corporation Common Stock
+MRNA,EXTENDED,stock,7-12,670623,166,1248,,True,"Moderna, Inc. Common Stock"
+CCL,EXTENDED,stock,7-12,666239,54,452,,True,Carnival Corporation Ltd.
+AG,EXTENDED,stock,7-12,664570,58,482,,True,FIRST MAJESTIC SILVER CORP
+PDD,EXTENDED,stock,7-12,658231,67,526,,True,PDD Holdings Inc. American Depositary Shares
+HIMS,EXTENDED,stock,7-12,645115,81,676,,True,"Hims & Hers Health, Inc."
+CVNA,EXTENDED,stock,7-12,633293,96,740,,True,Carvana Co.
+IEF,EXTENDED,etf,7-12,631454,56,528,,False,iShares 7-10 Year Treasury Bond ETF
+XOM,EXTENDED,stock,7-12,627321,67,588,,True,ExxonMobil Holdings Corporation
+SHOP,EXTENDED,stock,7-12,625037,87,786,,True,Shopify Inc. Class A subordinate voting shares
+B,EXTENDED,stock,7-12,607545,60,560,,True,Barrick Mining Corporation
+QCOM,EXTENDED,stock,7-12,600935,75,686,,True,QUALCOMM Incorporated Common Stock
+SLB,EXTENDED,unclassified,7-12,600919,53,440,,False,SLB Limited
+BYND,EXTENDED,stock,7-12,597164,49,436,,True,"Beyond Meat, Inc. Common Stock"
+XPEV,EXTENDED,stock,7-12,587965,48,414,,True,"XPeng Inc. American depositary shares, each repr"
+UNH,EXTENDED,stock,7-12,584218,127,962,,True,UNITEDHEALTH GROUP INCORPORATED (Delaware)
+C,EXTENDED,stock,7-12,576290,82,672,,True,Citigroup Inc.
+SBET,EXTENDED,stock,7-12,561292,45,294,crypto_proxy,True,"SharpLink, Inc. Common Stock"
+WFC,EXTENDED,stock,7-12,557555,62,520,,True,Wells Fargo & Co.
+CRM,EXTENDED,stock,7-12,555804,88,732,,True,"Salesforce, Inc."
+CMG,EXTENDED,stock,7-12,554792,58,440,,True,"Chipotle Mexican Grill, Inc."
+OXY,EXTENDED,stock,7-12,543955,53,452,,True,Occidental Petroleum Corporation
+CRCL,EXTENDED,stock,7-12,539793,147,868,crypto_proxy,True,"Circle Internet Group, Inc."
+ARKK,EXTENDED,etf,7-12,539496,101,774,,False,ARK Innovation ETF
+SQQQ,EXTENDED,etf,7-12,527255,120,1056,leveraged,False,ProShares UltraPro Short QQQ
+QBTS,EXTENDED,stock,7-12,520074,68,578,,True,D-Wave Quantum Inc. Common Stock
+RGTI,EXTENDED,stock,7-12,518898,73,574,,True,"Rigetti Computing, Inc. Common Stock"
+IONQ,EXTENDED,stock,7-12,515088,88,870,,True,"IonQ, Inc."
+BB,EXTENDED,unclassified,7-12,511492,42,370,,False,BlackBerry Limited
+PATH,EXTENDED,stock,7-12,495007,48,410,,True,"UiPath, Inc."
+OKLO,EXTENDED,stock,7-12,473797,111,776,,True,Oklo Inc.
+NVTS,EXTENDED,stock,7-12,473765,70,526,,True,Navitas Semiconductor Corporation Common Stock
+WOLF,EXTENDED,stock,7-12,469814,92,714,,True,"Wolfspeed, Inc."
+KO,EXTENDED,stock,7-12,463646,61,510,,True,Coca-Cola Company
+VFC,EXTENDED,stock,7-12,457271,53,358,,True,V.F. Corporation
+XLV,EXTENDED,etf,7-12,451851,98,896,,False,State Street Health Care Select Sector SPDR ETF
+DKNG,EXTENDED,stock,7-12,450507,56,406,,True,DraftKings Inc. Class A Common Stock
+ADBE,EXTENDED,stock,7-12,446956,118,952,,True,Adobe Inc. Common Stock
+DELL,EXTENDED,stock,7-12,446816,197,1578,,True,Dell Technologies Inc.
+CELH,EXTENDED,stock,7-12,441637,73,576,,True,"Celsius Holdings, Inc. Common Stock"
+SILJ,EXTENDED,etf,7-12,438494,81,582,,False,Amplify Junior Silver Miners ETF
+DIS,EXTENDED,stock,7-12,436821,60,534,,True,The Walt Disney Company
+BA,EXTENDED,stock,7-12,432461,94,816,,True,Boeing Company
+HAL,EXTENDED,stock,7-12,432421,51,446,,True,Halliburton Company
+SOXS,EXTENDED,etf,7-12,430353,121,1402,leveraged,False,Direxion Daily Semiconductor Bear 3X ETF
+FSLR,EXTENDED,stock,7-12,429147,88,768,,True,"First Solar, Inc. Common Stock"
+UUUU,EXTENDED,stock,7-12,428026,49,436,,True,Energy Fuels Inc.
+JPM,EXTENDED,stock,7-12,424423,103,900,,True,JPMorgan Chase & Co.
+USAR,EXTENDED,stock,7-12,420757,69,536,,True,"USA Rare Earth, Inc. Class A Common Stock"
+ARM,EXTENDED,stock,7-12,418496,145,1188,,True,Arm Holdings plc American Depositary Shares
+IBM,EXTENDED,stock,7-12,412969,90,890,,True,International Business Machines Corporation
+SMR,EXTENDED,stock,7-12,409213,55,396,,True,NuScale Power Corporation
+ASHR,EXTENDED,etf,7-12,406751,52,426,,False,Xtrackers Harvest CSI 300 China A-Shares ETF
+BMY,EXTENDED,stock,7-12,404724,54,444,,True,Bristol-Myers Squibb Co.
+DVN,EXTENDED,stock,7-12,403957,64,452,,True,Devon Energy Corporation
+LYFT,EXTENDED,stock,7-12,398997,43,380,,True,"Lyft, Inc. Class A Common Stock"
+NEM,EXTENDED,stock,7-12,398410,110,832,,True,Newmont Corporation
+RUN,EXTENDED,stock,7-12,397903,44,374,,True,Sunrun Inc. Common Stock
+NCLH,EXTENDED,stock,7-12,394905,46,358,,True,Norwegian Cruise Line Holdings Ltd. Ordinary Sha
+DJT,EXTENDED,stock,7-12,390831,67,428,,True,Trump Media & Technology Group Corp. Common Stoc
+HPQ,EXTENDED,stock,7-12,388669,55,464,,True,HP Inc.
+CVX,EXTENDED,stock,7-12,386672,61,680,,True,Chevron Corporation
+NEE,EXTENDED,stock,7-12,386529,59,506,,True,"NextEra Energy, Inc."
+BRK.B,EXTENDED,unclassified,7-12,386011,103,1048,,False,BERKSHIRE HATHAWAY Class B
+MRK,EXTENDED,stock,7-12,384573,76,710,,True,"Merck & Co., Inc."
+SOC,EXTENDED,stock,7-12,383963,60,330,,True,Sable Offshore Corp.
+LRCX,EXTENDED,stock,7-12,383045,185,1236,,True,Lam Research Corporation Common Stock
+OSCR,EXTENDED,stock,7-12,382398,65,554,,True,"Oscar Health, Inc."
+BP,EXTENDED,stock,7-12,380738,52,470,,True,BP p.l.c.
+CPNG,EXTENDED,stock,7-12,377499,53,434,,True,"Coupang, Inc."
+XLK,EXTENDED,etf,7-12,376764,141,1106,,False,State Street Technology Select Sector SPDR ETF
+HPE,EXTENDED,stock,7-12,370160,82,578,,True,Hewlett Packard Enterprise Company
+RDDT,EXTENDED,stock,7-12,368554,108,850,,True,"Reddit, Inc."
+UNG,EXTENDED,etf,7-12,367721,52,526,,False,"United States Natural Gas Fund, LP Unit"
+BIDU,EXTENDED,stock,7-12,361354,82,696,,True,"Baidu, Inc. ADS"
+QUBT,EXTENDED,stock,7-12,356489,45,388,,True,Quantum Computing Inc. Common Stock
+DOW,EXTENDED,stock,7-12,355781,54,394,,True,Dow Inc.
+XLB,EXTENDED,etf,7-12,355183,75,580,,False,State Street Materials Select Sector SPDR ETF
+CCJ,EXTENDED,stock,7-12,352120,81,628,,True,Cameco Corporation
+GLW,EXTENDED,stock,7-12,351749,122,916,,True,Corning Incorporated
+FIG,EXTENDED,stock,7-12,349937,68,464,,True,"Figma, Inc."
+GLXY,EXTENDED,stock,7-12,347783,66,534,crypto_proxy,True,Galaxy Digital Inc. Class A Common Stock
+PANW,EXTENDED,stock,7-12,347743,170,1548,,True,"Palo Alto Networks, Inc. Common Stock"
+XBI,EXTENDED,etf,7-12,346137,140,1144,,False,State Street SPDR S&P Biotech ETF
+XLI,EXTENDED,etf,7-12,344701,120,944,,False,State Street Industrial Select Sector SPDR ETF
+VST,EXTENDED,stock,7-12,340221,91,754,,True,Vistra Corp.
+MO,EXTENDED,stock,7-12,338377,58,462,,True,"Altria Group, Inc."
+NVDL,EXTENDED,etf,7-12,337295,144,910,leveraged,False,GraniteShares ETF Trust GraniteShares 2x Long NV
+SIRI,EXTENDED,stock,7-12,336027,45,416,,True,SiriusXM Holdings Inc. Common Stock
+MP,EXTENDED,stock,7-12,334842,78,520,,True,MP Materials Corp.
+WDC,EXTENDED,stock,7-12,334593,256,2000,,True,Western Digital Corporation Common Stock
+U,EXTENDED,stock,7-12,323904,65,566,,True,Unity Software Inc.
+TEVA,EXTENDED,stock,7-12,323642,53,480,,True,Teva Pharmaceutical Industries Limited American 
+VXX,EXTENDED,etf,7-12,318937,109,836,vol_etp,False,iPath Series B S&P 500 VIX Short-Term Futures ET
+SNOW,EXTENDED,stock,7-12,316955,124,1024,,True,Snowflake Inc.
+TEM,EXTENDED,stock,7-12,316210,86,626,,True,"Tempus AI, Inc. Class A Common Stock"
+SBUX,EXTENDED,stock,7-12,315754,53,492,,True,Starbucks Corporation Common Stock
+VRT,EXTENDED,stock,7-12,313825,131,1024,,True,Vertiv Holdings Co Class A Common Stock
+V,EXTENDED,stock,7-12,312265,97,918,,True,VISA Inc.
+DAL,EXTENDED,stock,7-12,311848,69,560,,True,"Delta Air Lines, Inc."
+AMAT,EXTENDED,stock,7-12,310553,210,1648,,True,"Applied Materials, Inc. Common Stock"
+TGT,EXTENDED,stock,7-12,310550,68,604,,True,Target Corporation
+XOP,EXTENDED,etf,7-12,306368,128,1048,,False,State Street SPDR S&P Oil & Gas Exploration & Pr
+PEP,EXTENDED,stock,7-12,304091,62,602,,True,"PepsiCo, Inc. Common Stock"
+DIA,EXTENDED,etf,7-12,303588,192,1588,,False,State Street SPDR Dow Jones Industrial Average E
+KHC,EXTENDED,stock,7-12,301702,42,342,,True,The Kraft Heinz Company Common Stock

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.nuka.alpaca-agent-b</string>
+
+  <!-- CORE-6 put credit on account PA3ZNXHF8ID1. The profile carries its own account block, and
+       agent_loop asserts the broker agrees before any order -- so a mis-set credential
+       fails loudly here rather than trading another book's ledger.
+
+       The venv interpreter is named absolutely: launchd runs with a minimal PATH and
+       would otherwise resolve /usr/bin/python3, which has none of the dependencies. -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>/ABSOLUTE/PATH/TO/alpaca-options-agent/.venv/bin/python</string>
+    <string>/ABSOLUTE/PATH/TO/alpaca-options-agent/agent/agent_loop.py</string>
+    <string>--profile</string>
+    <string>putcr-core6</string>
+    <string>--once</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/ABSOLUTE/PATH/TO/alpaca-options-agent</string>
+
+  <!-- Every 30 minutes. The agent's own market gate exits immediately outside regular
+       hours, which is more robust than encoding a trading calendar here -- half-days
+       and holidays come from Alpaca's clock rather than from a guess. -->
+  <key>StartInterval</key>
+  <integer>1800</integer>
+
+  <!-- Do not fire merely because the Mac woke or the plist was loaded. -->
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <!-- SHADOW=1 forces --dry-run on every order regardless of the command line. Set to
+         0 deliberately to trade. This is the belt to the --shadow flag's braces. -->
+    <key>SHADOW</key>
+    <string>0</string>
+    <!-- launchd's default PATH has no Homebrew, so the `alpaca` binary is unreachable
+         without this. agent_loop also resolves it absolutely: two independent fixes,
+         because a scheduled run that cannot find its CLI fails every cycle silently. -->
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/nuka-alpaca-agent-b.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/nuka-alpaca-agent-b.log</string>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

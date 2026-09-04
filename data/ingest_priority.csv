@@ -1,0 +1,4 @@
+rank,symbol,n_eff_after,n_eff_gain,corr_spy,ann_vol,total_oi,name
+1,USO,2.122,0.516,-0.023,0.4082,1019803,"United States Oil Fund, LP"
+2,IEF,2.665,0.543,0.033,0.0573,631454,iShares 7-10 Year Treasury Bond ETF
+3,UNG,3.235,0.571,-0.01,0.5874,367721,"United States Natural Gas Fund, LP Unit"

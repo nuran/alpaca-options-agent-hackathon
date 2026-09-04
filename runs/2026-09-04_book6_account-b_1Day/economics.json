@@ -1,0 +1,41 @@
+{
+  "trades": 233,
+  "wins": 203,
+  "losses": 30,
+  "credit_collected_dollars": 72566.72,
+  "pnl_dollars": 11506.1,
+  "leftover_share_of_credit": 0.1586,
+  "mean_credit_over_width": 0.0861,
+  "breakeven_winrate": 0.9139,
+  "actual_winrate": 0.8712,
+  "winrate_gap": -0.0427,
+  "_gap_note": "negative gap = realised winrate below breakeven for this credit/width; half of an 8pt gap at 3% friction was execution cost in the 2026-08-29 measurement",
+  "by_exit_reason": {
+    "expiry": {
+      "n": 186,
+      "pnl_dollars": 11868.88,
+      "avg_pnl": 63.81,
+      "worst_pnl": -3668.8
+    },
+    "stop_loss": {
+      "n": 10,
+      "pnl_dollars": -9365.97,
+      "avg_pnl": -936.6,
+      "worst_pnl": -3170.33
+    },
+    "take_profit": {
+      "n": 37,
+      "pnl_dollars": 9003.19,
+      "avg_pnl": 243.33,
+      "worst_pnl": 80.88
+    }
+  },
+  "tail": {
+    "threshold": "|pnl| > 50% of max_loss",
+    "n": 12,
+    "pnl_dollars": -35586.61,
+    "share_of_trades": 0.0515,
+    "share_of_gross_loss": 0.7565,
+    "share_of_gross_profit": 0.6078
+  }
+}
