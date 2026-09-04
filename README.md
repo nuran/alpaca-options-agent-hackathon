@@ -184,7 +184,24 @@ This section is the point of the project, not an apology for it.
 
 ---
 
-## 7. Setup
+## 7. Presentation
+
+[`deck/Live_Pipeline_Agent_Deck.pdf`](deck/Live_Pipeline_Agent_Deck.pdf) — 16 slides walking
+the deployed system end to end: the cycle, all seven gates with their real thresholds and
+drop-reason codes, the two rulebooks side by side, and the live-versus-backtest contrast
+from section 5.
+
+The deck is built from source, not drawn: `deck/index.html` renders to PDF with headless
+Chrome via `deck/build.sh`, and the build refuses to render until `deck/verify_numbers.py`
+has read every figure back out of the rulebooks, the run summaries and the agent source —
+81 assertions, including that no slide cites a file which is not in this repository. That
+check exists because the deck it replaced documented a branch that had never traded.
+
+```bash
+cd deck && ./build.sh          # verify, then render
+```
+
+## 8. Setup
 
 ```bash
 make setup                          # venv + dependencies
@@ -202,7 +219,7 @@ make live-c                         # one cycle against the paper broker
 seconds with no network. That round trip is what makes the numbers above reproducible
 without re-downloading two and a half years of option bars.
 
-## 8. Layout
+## 9. Layout
 
 | Path | What |
 |---|---|
@@ -216,6 +233,7 @@ without re-downloading two and a half years of option bars.
 | `data/restore.py` | Rebuild the DuckDB store from the committed Parquet |
 | `skills/options-core-patterns/` | The written rules the code enforces (no European index products, VIX regime, close before expiry) |
 | `runs/` | One self-contained folder per backtest, with full provenance |
+| `deck/` | The presentation: HTML source, build script, and the number-verification test |
 
 Each rulebook carries `_why` fields next to its numbers. They are the reasoning behind
 each threshold, kept beside the value so a later reader cannot change one without seeing

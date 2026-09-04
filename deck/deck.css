@@ -1,0 +1,219 @@
+/* Live Pipeline — Agent Deck.
+   Palette: brand-assets/tokens.css, reversed mapping (--brand-on-dark-bg: navy).
+   Only the four brand hexes are declared. Every other colour on these slides is an
+   opacity or a color-mix of those four, so "brand colours only" is verifiable by
+   grepping this file for `#`. */
+
+:root {
+  --navy:     #1B2A4A;   /* primary — ground */
+  --cream:    #F7F4EC;   /* neutral — text */
+  --charcoal: #232323;   /* body text on light; deep panel ground here */
+  --gold:     #B08D57;   /* sparing accent — rules, emphasis, code labels */
+
+  /* Grounds, derived */
+  --ground:      color-mix(in srgb, var(--navy) 88%, var(--charcoal));
+  --ground-deep: color-mix(in srgb, var(--navy) 62%, var(--charcoal));
+  --panel:       color-mix(in srgb, var(--navy) 78%, var(--charcoal));
+  --panel-gold:  color-mix(in srgb, var(--gold) 12%, var(--ground-deep));
+
+  /* Ink, stepped by opacity */
+  --ink:      var(--cream);
+  --ink-2:    color-mix(in srgb, var(--cream) 72%, transparent);
+  --ink-3:    color-mix(in srgb, var(--cream) 50%, transparent);
+  --ink-4:    color-mix(in srgb, var(--cream) 34%, transparent);
+
+  --rule:      color-mix(in srgb, var(--cream) 14%, transparent);
+  --rule-gold: color-mix(in srgb, var(--gold) 46%, transparent);
+
+  --serif: 'Source Serif 4', Georgia, Charter, 'Times New Roman', serif;
+  --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono:  'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+@page { size: 960pt 540pt; margin: 0; }
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+
+.slide {
+  position: relative;
+  width: 960pt; height: 540pt;
+  padding: 30pt 38pt 26pt;
+  background: var(--ground);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  break-after: page; page-break-after: always;
+}
+.slide:last-child { break-after: auto; page-break-after: auto; }
+
+/* ---------- shared anatomy ---------- */
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 7.5pt; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex; align-items: center; gap: 7pt;
+  margin-bottom: 14pt;
+}
+.eyebrow .dot {
+  width: 5pt; height: 5pt; border-radius: 50%;
+  background: var(--gold); flex: none;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: 27pt; line-height: 1.12; font-weight: 700;
+  margin: 0 0 8pt; letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+h1 em { font-style: normal; color: var(--gold); }
+h1 .code { font-family: var(--mono); font-size: 20pt; color: var(--gold); font-weight: 600; }
+
+.lede {
+  font-size: 10pt; line-height: 1.5; color: var(--ink-2);
+  max-width: 560pt; margin: 0 0 16pt;
+}
+.lede strong { color: var(--ink); font-weight: 600; }
+.lede code, .body code { font-family: var(--mono); font-size: 0.92em; color: var(--gold); }
+
+/* Content is centred in whatever height is left after the heading block, so a slide
+   with a short body does not leave a dead lower half. Grid bodies need align-content
+   rather than justify-content to do the same thing. */
+.body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+.body.cols { display: grid; align-content: center; }
+.cols-2, .cols-3, .cols-58 { align-items: stretch; }
+
+.src {
+  font-family: var(--mono); font-size: 7pt; color: var(--ink-4);
+  text-align: right; margin-top: auto; padding-top: 10pt;
+}
+
+/* ---------- gate tab strip ---------- */
+
+.tabs { display: flex; gap: 4pt; margin: -6pt 0 12pt; flex-wrap: wrap; }
+.tab {
+  font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.04em;
+  padding: 2.5pt 6pt; border-radius: 3pt;
+  border: 0.6pt solid var(--rule); color: var(--ink-4);
+}
+.tab.on { border-color: var(--rule-gold); color: var(--gold); background: var(--panel-gold); }
+
+/* ---------- panels ---------- */
+
+.cols { display: grid; gap: 12pt; }
+.cols-2 { grid-template-columns: 1fr 1fr; }
+.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.cols-58 { grid-template-columns: 1.35fr 1fr; }
+
+.panel {
+  background: var(--panel);
+  border: 0.6pt solid var(--rule);
+  border-radius: 5pt;
+  padding: 13pt 15pt;
+}
+.panel.gold { background: var(--panel-gold); border-color: var(--rule-gold); }
+
+.label {
+  font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 6pt;
+}
+.label.mute { color: var(--ink-4); }
+
+.panel p { font-size: 8.8pt; line-height: 1.5; color: var(--ink-2); margin: 0 0 9pt; }
+.panel p:last-child { margin-bottom: 0; }
+.panel p strong, .panel strong { color: var(--ink); font-weight: 600; }
+
+.big {
+  font-family: var(--mono); font-size: 13pt; color: var(--ink);
+  margin: 0 0 3pt; font-weight: 600;
+}
+.big .u { color: var(--gold); }
+.note { font-size: 7.6pt; line-height: 1.45; color: var(--ink-4); margin: 0; }
+
+/* ---------- code chips ---------- */
+
+.codes { display: flex; flex-wrap: wrap; gap: 4pt; margin-top: 4pt; }
+.chip {
+  font-family: var(--mono); font-size: 7pt;
+  padding: 2.5pt 6pt; border-radius: 3pt;
+  background: color-mix(in srgb, var(--cream) 6%, transparent);
+  border: 0.5pt solid var(--rule);
+  color: var(--ink-2);
+}
+.chip.gold { color: var(--gold); border-color: var(--rule-gold); }
+
+/* ---------- flow / pipeline strip ---------- */
+
+.flow { display: flex; align-items: stretch; gap: 0; margin-top: 6pt; }
+.step {
+  flex: 1; padding: 10pt 9pt;
+  border: 0.6pt solid var(--rule); border-radius: 4pt;
+  background: var(--panel);
+  position: relative;
+}
+.step + .step { margin-left: 7pt; }
+.step + .step::before {
+  content: "›"; position: absolute; left: -7.5pt; top: 50%;
+  transform: translateY(-50%); color: var(--ink-4); font-size: 9pt;
+}
+.step h4 {
+  font-family: var(--mono); font-size: 8pt; color: var(--ink);
+  margin: 0 0 5pt; font-weight: 600;
+}
+.step .sub { font-size: 7pt; line-height: 1.45; color: var(--ink-3); }
+.step .act {
+  font-family: var(--mono); font-size: 6.4pt; letter-spacing: 0.06em;
+  color: var(--ink-4); margin-top: 6pt; text-transform: uppercase;
+}
+.step.terminal { background: var(--panel-gold); border-color: var(--rule-gold); flex: 0 0 74pt; }
+.step.terminal h4 { color: var(--gold); }
+
+/* ---------- tables ---------- */
+
+table { width: 100%; border-collapse: collapse; font-size: 8.4pt; }
+th, td { text-align: left; padding: 5.5pt 8pt; border-bottom: 0.5pt solid var(--rule); }
+th {
+  font-family: var(--mono); font-size: 6.8pt; letter-spacing: 0.11em;
+  text-transform: uppercase; color: var(--ink-4); font-weight: 500;
+  border-bottom-color: var(--rule-gold);
+}
+td { color: var(--ink-2); vertical-align: top; }
+td.k { color: var(--ink); font-weight: 600; }
+td.n { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+td.hi { color: var(--gold); font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+
+/* ---------- title slide ---------- */
+
+.title { justify-content: center; }
+.title .eyebrow { position: absolute; top: 30pt; left: 38pt; margin: 0; }
+.title .src { position: absolute; bottom: 26pt; right: 38pt; margin: 0; padding: 0; }
+.title .kicker {
+  font-family: var(--mono); font-size: 7.5pt; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 16pt;
+}
+.title h1 { font-size: 62pt; line-height: 0.98; margin: 0 0 18pt; letter-spacing: -0.025em; }
+.title .lede { font-size: 11pt; max-width: 500pt; }
+.stats { display: flex; gap: 9pt; margin-top: 26pt; }
+.stat {
+  flex: 0 0 150pt; padding: 9pt 12pt;
+  border: 0.6pt solid var(--rule); border-left: 2pt solid var(--rule-gold);
+  border-radius: 4pt; background: var(--panel);
+}
+.stat .label { margin-bottom: 4pt; }
+.stat .v { font-family: var(--mono); font-size: 9.5pt; color: var(--ink); }
+
+/* ---------- closing ---------- */
+
+.index { font-family: var(--mono); font-size: 7.6pt; line-height: 1.85; color: var(--ink-3); }
+.index b { color: var(--gold); font-weight: 600; display: inline-block; min-width: 118pt; }
+
+.rule-gold { height: 2pt; width: 46pt; background: var(--gold); margin: 0 0 16pt; }

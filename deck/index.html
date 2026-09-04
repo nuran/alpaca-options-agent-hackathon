@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Live Pipeline — Agent Deck</title>
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+<!-- ============================ TITLE ============================ -->
+<section class="slide title">
+  <div class="eyebrow"><span class="dot"></span>ALPACA-OPTIONS-AGENT · DEPLOYED SYSTEM</div>
+  <div class="kicker">LABLAB.AI × ALPACA · PAPER-ONLY SYSTEMATIC OPTIONS DESK</div>
+  <h1>Live<br><em>Pipeline</em></h1>
+  <p class="lede">One autonomous agent, one fifteen-minute cycle, seven gates a candidate has to
+  survive before an order is ever built. Two paper accounts ran it side by side, differing in a
+  single parameter. This deck is that system — the deployed one, not the roadmap.</p>
+  <div class="stats">
+    <div class="stat"><div class="label">Cadence</div><div class="v">15 min · RTH-gated</div></div>
+    <div class="stat"><div class="label">Universe</div><div class="v">12 fixed · 6 fixed</div></div>
+    <div class="stat"><div class="label">Default</div><div class="v">NO_TRADE</div></div>
+    <div class="stat"><div class="label">Models in pipeline</div><div class="v">zero</div></div>
+  </div>
+  <div class="src">accounts PA3UU4TX8Y3K · PA3ZNXHF8ID1 · verified against source 2026-09-04</div>
+</section>
+
+<!-- ============================ 01 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>THE AGENT · 01 / 15</div>
+  <h1>What the agent is, and <em>isn't</em></h1>
+  <p class="lede">One process, one invariant that never bends: <strong>the model proposes, the code
+  disposes</strong>. Everything on the next fourteen slides is that sentence, enforced in code.</p>
+  <div class="body cols cols-58" style="display:grid">
+    <div class="panel">
+      <div class="label">Scope</div>
+      <p>A defined-risk, short-dated put-credit book on U.S. equity and sector ETFs via Alpaca —
+      <strong>paper only</strong>. One structure per underlying per cycle, built by rule, not by
+      scanning every combination for the fattest credit.</p>
+      <div class="label" style="margin-top:12pt">Autonomy</div>
+      <p>Runs unattended on a 15-minute <code>launchd</code> timer through the whole regular
+      session. No human approves a cycle. Every threshold is pre-registered in the account's
+      rulebook and never edited from inside a running cycle.</p>
+      <div class="label" style="margin-top:12pt">Where a model is allowed near it</div>
+      <p><strong>Exactly one seam</strong>, fail-closed: a news classifier that may only
+      <em>suppress</em> a candidate on catalyst risk. It cannot create one.</p>
+    </div>
+    <div class="cols" style="display:grid;grid-template-rows:repeat(3,auto);gap:12pt">
+      <div class="panel gold">
+        <div class="label">The invariant</div>
+        <p class="note">The model never sizes, prices, or authorizes. A malformed or failed model
+        response resolves to <strong>PASS</strong> — never a default open.</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">Missing data</div>
+        <p class="note">Treated as UNKNOWN, everywhere — never a licence to trade. A stale VIX
+        snapshot does not default to "risk on"; it blocks new short vega book-wide.</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">What this deck covers</div>
+        <p class="note">The cycle spine, the universe the agent may look at, all seven gates, the
+        two rulebooks that ran, and what the accounts actually did.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">agent/agent_loop.py · agent/veto.py</div>
+</section>
+
+<!-- ============================ 02 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>THE CYCLE · 02 / 15</div>
+  <h1>Eight hand-offs, every <em>15 minutes</em></h1>
+  <p class="lede">One tick either dies at the market gate or runs the full chain. Only one box has a
+  model anywhere near it, and it sits after every risk check, not before.</p>
+  <div class="body">
+    <div class="flow">
+      <div class="step"><h4>MARKET GATE</h4><div class="sub">clock via CLI<br>&lt;30m to close → exits only</div><div class="act">no model</div></div>
+      <div class="step"><h4>OBSERVE</h4><div class="sub">account · positions<br>orders · fills</div><div class="act">no model</div></div>
+      <div class="step"><h4>RISK GATE</h4><div class="sub">halts · forced exits<br>runs before anything opens</div><div class="act">no model</div></div>
+      <div class="step"><h4>UNIVERSE</h4><div class="sub">fixed list<br>skill-filtered</div><div class="act">gate 1</div></div>
+      <div class="step"><h4>BUILD</h4><div class="sub">chain · regime<br>structure · vol</div><div class="act">gates 2–5</div></div>
+      <div class="step"><h4>DECIDE</h4><div class="sub">news veto<br>one classification</div><div class="act">gate 6 · model</div></div>
+      <div class="step"><h4>VALIDATE</h4><div class="sub">cap · duplicates<br>risk budget</div><div class="act">gate 7</div></div>
+      <div class="step terminal"><h4>SUBMIT</h4><div class="sub">mleg atomic<br>or SHADOW</div></div>
+    </div>
+    <div class="cols cols-2" style="display:grid;margin-top:16pt">
+      <div class="panel">
+        <div class="label mute">Outside regular hours</div>
+        <p class="note"><code>market_gate()</code> returns before the universe is ever resolved.
+        The journal gets one field — <code>stage="market_gate"</code> — and the cycle ends. Zero of
+        seven gates run. On 2026-09-04 that was 44 of 44 ticks on account C.</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">Exits run before entries, always</div>
+        <p class="note">Take-profit, stop, expiry-day close and the flat-by date are evaluated and
+        acted on in the risk gate — before a single candidate is constructed. A cycle that closes a
+        position and opens nothing is the normal, healthy shape.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">agent_loop.cycle() · agent/com.nuka.alpaca-agent-c.plist (StartInterval 900)</div>
+</section>
+
+<!-- ============================ 03 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>UPSTREAM OF THE FUNNEL · 03 / 15</div>
+  <h1>What the agent is even <em>allowed to look at</em></h1>
+  <p class="lede">No scanner, no screener, no ranking model. The universe is a hand-written list in
+  the rulebook, and it is re-filtered against the canon on <strong>every</strong> cycle — a name in
+  the list is a candidate for consideration, never a licence.</p>
+  <div class="body cols cols-3" style="display:grid">
+    <div class="panel">
+      <div class="label">01 · The list</div>
+      <p><code>universe.mode = "fixed"</code>. Account C names twelve underlyings, account B names
+      six. Nothing outside the list is ever priced.</p>
+      <p class="note">C: SPY QQQ IWM GLD XLF SMH USO SLV TLT IBIT UNG XLV<br>
+      B: SPY QQQ IWM GLD XLF SMH</p>
+    </div>
+    <div class="panel">
+      <div class="label">02 · Canon filter, every cycle</div>
+      <p><code>skills.filter_underlyings()</code> drops on venue and structure grounds — assignment
+      mechanics and decay profile, not a ranking preference.</p>
+      <div class="codes">
+        <span class="chip">P5_european_index</span>
+        <span class="chip">V5_vol_etp</span>
+        <span class="chip gold">P13_crypto_proxy</span>
+        <span class="chip">P13_leveraged_etp</span>
+      </div>
+    </div>
+    <div class="panel gold">
+      <div class="label">03 · What that costs, in fact</div>
+      <p><strong>IBIT is dropped on every cycle</strong> of account C, by
+      <code>P13_crypto_proxy</code>. It is in the rulebook and it has never been tradable by this
+      agent.</p>
+      <p class="note">The filter is deliberately downstream of the list, so a name added by hand
+      cannot bypass the canon. The cost is that a list can look wider than the book really is —
+      which is exactly what happened here.</p>
+    </div>
+  </div>
+  <div class="src">agent_loop.resolve_universe() · agent/skills.py filter_underlyings()</div>
+</section>
+
+<!-- ============================ 04 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>THE PIPELINE · 04 / 15</div>
+  <h1>Seven gates, <em>one direction</em></h1>
+  <p class="lede">Each gate narrows the set or annotates it, then hands off. No gate reorders
+  survivors by expected value, and no gate can re-admit something an earlier one dropped.</p>
+  <div class="body">
+    <div class="flow">
+      <div class="step"><h4>1 · universe</h4><div class="sub">fixed list<br>canon filter</div><div class="act">drops names</div></div>
+      <div class="step"><h4>2 · chain</h4><div class="sub">DTE window<br>quote hygiene</div><div class="act">drops rows</div></div>
+      <div class="step"><h4>3 · regime</h4><div class="sub">VIX pctile<br>contango proxy</div><div class="act">blocks book</div></div>
+      <div class="step"><h4>4 · structure</h4><div class="sub">delta band<br>credit ratio</div><div class="act">drops names</div></div>
+      <div class="step"><h4>5 · vol</h4><div class="sub">IV vs realised<br>k = 1.2</div><div class="act">drops cands</div></div>
+      <div class="step"><h4>6 · news</h4><div class="sub">classifier<br>+ veto</div><div class="act">drops cands</div></div>
+      <div class="step"><h4>7 · validate</h4><div class="sub">cap · dupes<br>risk budget</div><div class="act">drops cands</div></div>
+      <div class="step terminal"><h4>ORDER</h4><div class="sub">mleg limit<br>at mid</div></div>
+    </div>
+    <div class="panel" style="margin-top:16pt">
+      <div class="label mute">The shape of a normal day</div>
+      <p class="note">Across 242 cycles on account C, eight structures were submitted and two
+      filled. Six limit orders expired unfilled at the mid and were retired by the pending-order
+      timeout. The gates are not decoration: the overwhelming majority of ticks end in NO_TRADE,
+      and that is the design working rather than the agent failing.</p>
+    </div>
+  </div>
+  <div class="src">agent_loop.build_candidates() · detail on each gate — next seven slides</div>
+</section>
+
+<!-- ============================ 05 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>GATE 1 OF 7 · 05 / 15</div>
+  <div class="tabs">
+    <span class="tab on">universe</span><span class="tab">chain</span><span class="tab">regime</span>
+    <span class="tab">structure</span><span class="tab">vol</span><span class="tab">news</span><span class="tab">validate</span>
+  </div>
+  <h1><span class="code">universe</span> · Earning the right to be priced</h1>
+  <p class="lede">Before any name is priced it has to clear the canon — a venue-and-structure rule
+  that runs on every name, every cycle, no matter what the rulebook says.</p>
+  <div class="body cols cols-58" style="display:grid">
+    <div class="panel">
+      <div class="label">Mechanism</div>
+      <p>The rulebook's list is the input, not the output. Each name is tested against four
+      structural exclusions, and a drop is recorded with its exact code — a name that vanishes from
+      the book always says why in the journal.</p>
+      <div class="label" style="margin-top:12pt">Why these four, and not a score</div>
+      <p>European-style index options cannot be traded on this venue at all. Volatility ETPs are
+      path-dependent and are never a short-vol warehouse. Leveraged and inverse ETPs carry
+      rebalancing drag that makes them derivatives of a derivative. Crypto proxies duplicate a
+      factor this book does not price.</p>
+      <p class="note">None of that is a preference the agent could be argued out of on a good day.
+      It is assignment mechanics and product structure, decided once.</p>
+    </div>
+    <div style="display:grid;grid-template-rows:auto auto;gap:12pt">
+      <div class="panel gold">
+        <div class="label">In force</div>
+        <div class="big"><span class="u">4</span> structural exclusions</div>
+        <p class="note">applied to every name on every cycle, downstream of the list</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">Drop reasons — real codes</div>
+        <div class="codes">
+          <span class="chip">P5_european_index</span>
+          <span class="chip">V5_vol_etp</span>
+          <span class="chip gold">P13_crypto_proxy</span>
+          <span class="chip">P13_leveraged_etp</span>
+        </div>
+        <p class="note" style="margin-top:8pt">A second pass runs later on the finished candidate:
+        VXX is refused as a short-vol warehouse even if it somehow reached that far.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">agent/skills.py filter_underlyings() · annotate_candidates()</div>
+</section>
+
+<!-- ============================ 06 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>GATES 2 &amp; 3 OF 7 · 06 / 15</div>
+  <div class="tabs">
+    <span class="tab">universe</span><span class="tab on">chain</span><span class="tab on">regime</span>
+    <span class="tab">structure</span><span class="tab">vol</span><span class="tab">news</span><span class="tab">validate</span>
+  </div>
+  <h1>The market as it <em>actually is</em></h1>
+  <p class="lede">Two gates that do different jobs: <code>chain</code> decides which quotes are
+  trustworthy enough to price a leg from; <code>regime</code> decides whether short vega is
+  allowed at all, for the whole book at once.</p>
+  <div class="body cols cols-2" style="display:grid">
+    <div class="panel">
+      <div class="label">chain · quote hygiene</div>
+      <p>The DTE window is cut first, then clamped again by the book's flat-by date so nothing is
+      opened that cannot be held to expiry. Every remaining row is checked before a structure is
+      built from it. An untrustworthy quote is rejected before the code — or the model — ever
+      sees it.</p>
+      <div class="big"><span class="u">4</span>–<span class="u">7</span> DTE · <span class="u">300</span>s · <span class="u">8</span>% · $<span class="u">0.02</span></div>
+      <p class="note">min_dte–max_dte · max_quote_age_s · max_spread_pct_of_mid · mid floor</p>
+      <div class="codes" style="margin-top:8pt">
+        <span class="chip">unpriced</span><span class="chip">stale_quote</span>
+        <span class="chip">too_cheap</span><span class="chip">spread_too_wide</span>
+        <span class="chip">no_expiry_before_flat_by</span>
+      </div>
+    </div>
+    <div class="panel gold">
+      <div class="label">regime · one read for the whole book</div>
+      <p>Drops no single name. It sets one book-wide switch: may this agent sell vega today at
+      all? Missing or stale data is not permission — it resolves to UNKNOWN and the caller decides
+      conservatively.</p>
+      <div class="big">pct<sub>1y</sub> &lt; <span class="u">0.70</span> · contango</div>
+      <p class="note">VIX percentile below the stress decile, and the VIX3M/VIX ratio in
+      contango. Backwardation closes the book to new short vega immediately.</p>
+      <div class="codes" style="margin-top:8pt">
+        <span class="chip gold">P8_backwardation_vix3m_proxy</span>
+        <span class="chip gold">P8_vix_pct_1y&gt;=0.70</span>
+        <span class="chip">no_vix_snapshot</span>
+      </div>
+      <p class="note" style="margin-top:8pt"><strong>Stated honestly:</strong> the canon asks for VX
+      futures term structure. This venue lists none, so a VIX3M/VIX ratio stands in and is labelled
+      a proxy in the data, not passed off as the real curve.</p>
+    </div>
+  </div>
+  <div class="src">agent_loop.build_candidates() · agent/canon.py vix_context() · agent/skills.py regime_gate()</div>
+</section>
+
+<!-- ============================ 07 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>GATE 4 OF 7 · 07 / 15</div>
+  <div class="tabs">
+    <span class="tab">universe</span><span class="tab">chain</span><span class="tab">regime</span>
+    <span class="tab on">structure</span><span class="tab">vol</span><span class="tab">news</span><span class="tab">validate</span>
+  </div>
+  <h1><span class="code">structure</span> · One shape, built by rule</h1>
+  <p class="lede">There is no menu the agent picks from and no family selection. The book sells one
+  structure — a put credit vertical — and this gate either constructs it or returns nothing.</p>
+  <div class="body cols cols-58" style="display:grid">
+    <div class="panel">
+      <div class="label">Short leg → long leg → sanity</div>
+      <p><strong>1.</strong> Take every put whose absolute delta sits inside the band, then pick the
+      one closest to target. <strong>2.</strong> Place the long leg one width below it — or, when
+      that strike is not listed, at the <em>nearest listed strike to that distance</em>.
+      <strong>3.</strong> Reject unless the credit-to-width ratio lands inside its corridor.
+      <strong>4.</strong> Size from the account's risk budget; a size of zero is a drop.</p>
+      <div class="label" style="margin-top:12pt">What the nearest-strike fallback actually did</div>
+      <p>Nominal width is 5.0. Live, the fallback produced widths of <strong>1.0, 2.0, 3.0, 4.0, 5.0
+      and 6.0</strong> across the fifteen spreads the two accounts submitted — because the ETF strike
+      grids are not uniform at these tenors. The book is therefore less homogeneous than the single
+      number in the rulebook suggests, and the journal records the width actually built.</p>
+    </div>
+    <div style="display:grid;grid-template-rows:auto auto;gap:12pt">
+      <div class="panel gold">
+        <div class="label">Thresholds in force</div>
+        <div class="big">|Δ| = <span class="u">0.15</span> ± <span class="u">0.08</span></div>
+        <p class="note">target_delta · delta_tolerance</p>
+        <div class="big" style="margin-top:9pt">width <span class="u">5.0</span> · nearest listed</div>
+        <div class="big" style="margin-top:9pt">credit/width <span class="u">0.08</span>–<span class="u">0.60</span></div>
+        <p class="note">min_credit_ratio_vertical · max_credit_ratio</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">Declines, honestly labelled</div>
+        <p class="note">When the builder finds nothing it journals <code>no_structure</code> and does
+        <em>not</em> invent a reason — it does not report which of its own four conditions bound.
+        That is a stated limit of the trace, not a gap someone forgot to fill.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">agent_loop.pick_vertical() · agent/profiles/*/rules.json strategy block</div>
+</section>
+
+<!-- ============================ 08 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>GATE 5 OF 7 · 08 / 15</div>
+  <div class="tabs">
+    <span class="tab">universe</span><span class="tab">chain</span><span class="tab">regime</span>
+    <span class="tab">structure</span><span class="tab on">vol</span><span class="tab">news</span><span class="tab">validate</span>
+  </div>
+  <h1><span class="code">vol</span> · Sell only what is <em>rich</em></h1>
+  <p class="lede">The single thesis of the book, applied to the finished structure rather than to a
+  name: implied volatility on the leg being sold has to exceed recent realised by a margin.</p>
+  <div class="body cols cols-58" style="display:grid">
+    <div class="panel">
+      <div class="label">Mechanism</div>
+      <p>Realised volatility is computed over a 21-session window from the same OHLCV helper the
+      rest of the agent uses. The implied side is the <strong>short leg's own IV</strong>, not an
+      at-the-money proxy — the number belonging to the contract actually being sold.</p>
+      <p>The ratio must clear <code>1.2</code>. Below it the premium does not compensate for the
+      risk being taken, and the candidate is dropped rather than resized.</p>
+      <div class="label" style="margin-top:12pt">No data is not a pass</div>
+      <p>If realised volatility cannot be computed at all, richness cannot be verified, and the
+      candidate is dropped. Missing evidence never resolves in favour of trading.</p>
+    </div>
+    <div style="display:grid;grid-template-rows:auto auto;gap:12pt">
+      <div class="panel gold">
+        <div class="label">Constant</div>
+        <div class="big">IV<sub>short</sub> / RV<sub>21</sub> ≥ <span class="u">1.2</span></div>
+        <p class="note">min_iv_rv_ratio · rv_window = 21 · vol_gate_iv = short_leg</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">Why this one is load-bearing</div>
+        <p class="note">Live and backtest share this gate through the same code path. If the two
+        ever disagreed about what "rich" means, the backtest would stop describing the agent — so
+        the live path and <code>backtest/strategy.py</code> apply the identical rule rather than two
+        implementations that happen to match today.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">agent_loop.build_candidates() vol gate · agent_loop.realized_vol() · backtest/strategy.py</div>
+</section>
+
+<!-- ============================ 09 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>GATE 6 OF 7 · 09 / 15</div>
+  <div class="tabs">
+    <span class="tab">universe</span><span class="tab">chain</span><span class="tab">regime</span>
+    <span class="tab">structure</span><span class="tab">vol</span><span class="tab on">news</span><span class="tab">validate</span>
+  </div>
+  <h1><span class="code">news</span> · The one place a model touches this</h1>
+  <p class="lede">One classification call per cycle. It returns three enums. Deterministic code turns
+  those into ALLOW or PASS per underlying. <strong>The model cannot create, size or price a
+  candidate</strong> — by this point every candidate already exists and has passed five gates.</p>
+  <div class="body cols cols-2" style="display:grid">
+    <div class="panel">
+      <div class="label">The contract, in full</div>
+      <table>
+        <tr><th>field</th><th>values</th></tr>
+        <tr><td class="k">catalyst_scope</td><td class="n">NONE · SPY_ONLY · QQQ_ONLY · BOTH · UNKNOWN</td></tr>
+        <tr><td class="k">jump_severity</td><td class="n">NONE · MINOR · MAJOR</td></tr>
+        <tr><td class="k">news_clarity</td><td class="n">CLEAR · UNCLEAR</td></tr>
+      </table>
+      <p class="note" style="margin-top:9pt">It sees the filtered headlines, the DTE, and the short
+      strike for a distance test. It does not see thresholds, sizing, P&amp;L, the legs, or the
+      account. Schema-constrained decoding; the response is validated against the enum set and
+      rejected if it drifts.</p>
+    </div>
+    <div class="panel gold">
+      <div class="label">How the enums become a decision</div>
+      <p><strong>UNCLEAR or UNKNOWN</strong> → PASS. Uncertainty resolves to no trade.<br>
+      <strong>Scope touches the name and severity is MAJOR</strong> → PASS.<br>
+      <strong>MINOR</strong> → logged, allowed. A sub-1% expected gap cannot reach a 15-delta short
+      strike.<br>
+      <strong>Quiet tape</strong> → ALLOW.</p>
+      <div class="label" style="margin-top:12pt">Every failure mode, one answer</div>
+      <p class="note">No API key · transport error · refusal · malformed JSON · an enum outside the
+      schema · an empty news feed — all of them resolve to the same conservative context, and that
+      context resolves to PASS. The agent degrades to <strong>trading nothing</strong>, never to
+      trading without the check.</p>
+      <div class="codes" style="margin-top:8pt">
+        <span class="chip gold">unclear_news</span><span class="chip gold">catalyst</span>
+      </div>
+    </div>
+  </div>
+  <div class="src">agent/veto.py CLASSIFY_SCHEMA · decide() · apply_veto() · agent_loop.decide()</div>
+</section>
+
+<!-- ============================ 10 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>GATE 7 OF 7 · 10 / 15</div>
+  <div class="tabs">
+    <span class="tab">universe</span><span class="tab">chain</span><span class="tab">regime</span>
+    <span class="tab">structure</span><span class="tab">vol</span><span class="tab">news</span><span class="tab on">validate</span>
+  </div>
+  <h1><span class="code">validate</span> · The last word before an order</h1>
+  <p class="lede">Everything upstream is re-checked against live account state, because the account
+  can have moved since the cycle began. A candidate that survived six gates still has to fit.</p>
+  <div class="body cols cols-3" style="display:grid">
+    <div class="panel">
+      <div class="label">Capacity</div>
+      <div class="big"><span class="u">3</span> concurrent</div>
+      <p class="note">structures, not legs. One open four-leg position is one position — a bug worth
+      naming, because counting legs would let a single condor exhaust the whole book.</p>
+      <div class="big" style="margin-top:9pt"><span class="u">1</span> per name + expiry</div>
+      <p class="note">max_per_name. A second spread on the same underlying and expiry is dropped,
+      not stacked.</p>
+    </div>
+    <div class="panel">
+      <div class="label">Budget</div>
+      <div class="big"><span class="u">2</span>% equity per trade</div>
+      <p class="note">Max loss is width less credit, known exactly before entry, so size is
+      arithmetic rather than estimate. Capped at 20 contracts.</p>
+      <div class="big" style="margin-top:9pt">vol-target <span class="u">0.25</span></div>
+      <p class="note">Scales the budget 0.25×–2.0× from trailing marked-equity volatility.</p>
+    </div>
+    <div class="panel gold">
+      <div class="label">Halts, and who clears them</div>
+      <div class="big">−<span class="u">4</span>% day · −<span class="u">10</span>% drawdown</div>
+      <p class="note">Both measured on the <strong>marked</strong> curve, because a realised-cash
+      curve cannot see a drawdown that has not been closed yet.</p>
+      <p class="note" style="margin-top:8pt">A breach stops new entries and <strong>requires a human
+      to clear the state file</strong>. The agent will not restart itself. This is the one place the
+      design refuses to be autonomous.</p>
+    </div>
+  </div>
+  <div class="src">agent_loop.validate() · risk_gate() · risk_scale() · agent/structures.py open_structures()</div>
+</section>
+
+<!-- ============================ 11 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>PAST THE FUNNEL · 11 / 15</div>
+  <h1>What an order actually <em>is</em></h1>
+  <p class="lede">Both legs go as one package. A spread is one position with one price, not two
+  orders that might half-fill and leave a naked short behind.</p>
+  <div class="body cols cols-2" style="display:grid">
+    <div class="panel">
+      <div class="label">Submit</div>
+      <p><strong>Multi-leg <code>mleg</code>, limit at mid.</strong> Never a market order — the
+      chain feed is indicative, modelled rather than a real book, and a market order against it
+      would be reckless.</p>
+      <p><strong>Every order carries a <code>client_order_id</code>.</strong> Alpaca rejects
+      duplicates, which is what makes a retry safe instead of a double-fill.</p>
+      <p><strong>Unfilled limits are retired</strong> after the pending-order timeout, so a lost
+      order id cannot occupy the position cap for the rest of the session. Six of account C's eight
+      submissions ended exactly this way.</p>
+    </div>
+    <div class="panel">
+      <div class="label">Journal — the part that makes any of this checkable</div>
+      <p>Every cycle writes two files: a JSONL line carrying every input, gate result, model
+      response and order, and a human-readable analysis log of the same cycle.</p>
+      <p class="note">Both ship in this repository for both accounts —
+      <code>agent/profiles/*/decisions/</code>. They are the evidence for every claim on the
+      previous ten slides, including the cycles where the agent looked at the market and decided to
+      do nothing, which is most of them.</p>
+      <div class="label" style="margin-top:12pt">Reconciliation, every cycle</div>
+      <p class="note">Before judging anything, the agent compares what it believes it holds against
+      what the broker reports. An unregistered leg or an equity position halts it — assignment is
+      handled by stopping, not by guessing.</p>
+    </div>
+  </div>
+  <div class="src">agent_loop.submit_spread() · journal() · agent/structures.py reconcile() · agent/effects.py</div>
+</section>
+
+<!-- ============================ 12 · NEW ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>THE TWO SOURCE CODES · 12 / 15</div>
+  <h1>Two books, <em>one agent</em></h1>
+  <p class="lede">Accounts B and C run the <strong>same <code>agent_loop.py</code></strong>. What
+  differs between them is a JSON rulebook, and those two rulebooks differ in exactly three things
+  that matter. Everything else is byte-identical — which is what makes the pair a controlled
+  comparison instead of two unrelated bets.</p>
+  <div class="body cols cols-58" style="display:grid">
+    <div class="panel">
+      <table>
+        <tr><th></th><th>account C</th><th>account B</th></tr>
+        <tr><td class="k">rulebook</td><td class="n">putcr-core6-d47</td><td class="n">putcr-core6</td></tr>
+        <tr><td class="k">account</td><td class="n">PA3UU4TX8Y3K</td><td class="n">PA3ZNXHF8ID1</td></tr>
+        <tr><td class="k">min_dte → max_dte</td><td class="n hi">4 → 7</td><td class="n hi">1 → 7</td></tr>
+        <tr><td class="k">underlyings</td><td class="n hi">12</td><td class="n hi">6</td></tr>
+        <tr><td class="k">flat_by_date</td><td class="n">2026-09-18</td><td class="n">2026-09-03</td></tr>
+        <tr><td class="k">timer</td><td class="n">15 min</td><td class="n">30 min</td></tr>
+        <tr><td class="k">target_delta ± tol</td><td class="n">0.15 ± 0.08</td><td class="n">0.15 ± 0.08</td></tr>
+        <tr><td class="k">width · credit ratio</td><td class="n">5.0 · 0.08–0.60</td><td class="n">5.0 · 0.08–0.60</td></tr>
+        <tr><td class="k">min_iv_rv_ratio</td><td class="n">1.2</td><td class="n">1.2</td></tr>
+        <tr><td class="k">risk · concurrent · per name</td><td class="n">2% · 3 · 1</td><td class="n">2% · 3 · 1</td></tr>
+        <tr><td class="k">take profit · stop</td><td class="n">50% · 2×</td><td class="n">50% · 2×</td></tr>
+        <tr><td class="k">halts</td><td class="n">−4% · −10%</td><td class="n">−4% · −10%</td></tr>
+      </table>
+    </div>
+    <div style="display:grid;grid-template-rows:auto auto auto;gap:11pt">
+      <div class="panel gold">
+        <div class="label">Why a rulebook and not a branch</div>
+        <p class="note">A profile binds a rulebook, a journal directory and an account together.
+        <code>assert_account</code> reads the broker before any order and <strong>refuses to
+        start</strong> if the credentials reach an account other than the one the book names. Two
+        books cannot silently share one account, which is what makes their journals comparable.</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">The variable under test</div>
+        <p class="note">Tenor. C sells 4–7 days out, B sells 1–7. Same strikes rule, same richness
+        gate, same sizing, same exits. Any difference in outcome is the tenor or it is noise —
+        there is no third explanation hiding in the configuration.</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">Reading the reasoning</div>
+        <p class="note">Every rulebook carries <code>_why</code> fields beside its numbers. The
+        argument for a threshold lives next to the threshold, so it cannot be changed without
+        seeing what it was for.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">agent/profiles/putcr-core6-d47/rules.json · agent/profiles/putcr-core6/rules.json · agent_loop.assert_account()</div>
+</section>
+
+<!-- ============================ 13 · NEW ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>WHAT THE ACCOUNTS DID · 13 / 15</div>
+  <h1>Live, and <em>measured</em></h1>
+  <p class="lede">Both accounts started at $100,000.00 and both are up. The backtest disagrees with
+  the ranking, and that disagreement is the most useful thing on this slide.</p>
+  <div class="body cols cols-2" style="display:grid">
+    <div class="panel">
+      <div class="label">Live · paper, 1–4 September 2026</div>
+      <table>
+        <tr><th></th><th>C · PA3UU4TX8Y3K</th><th>B · PA3ZNXHF8ID1</th></tr>
+        <tr><td class="k">equity</td><td class="n hi">$100,342.80</td><td class="n">$100,277.20</td></tr>
+        <tr><td class="k">return</td><td class="n hi">+0.343%</td><td class="n">+0.277%</td></tr>
+        <tr><td class="k">cycles</td><td class="n">242</td><td class="n">131</td></tr>
+        <tr><td class="k">spreads submitted</td><td class="n">8</td><td class="n">7</td></tr>
+        <tr><td class="k">filled</td><td class="n">2</td><td class="n">7</td></tr>
+        <tr><td class="k">unfilled at the limit</td><td class="n">6</td><td class="n">0</td></tr>
+        <tr><td class="k">open now</td><td class="n">1 · SPY 749/754P</td><td class="n">0 · flat</td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <div class="label">Backtest · 2024-01-22 → 2026-08-26 · 1,661,101 option bars</div>
+      <table>
+        <tr><th>friction</th><th>C · DTE 4–7</th><th>B · DTE 1–7</th></tr>
+        <tr><td class="k">1% per leg</td><td class="n">+18.23% · 0.86</td><td class="n">+16.62% · 0.68</td></tr>
+        <tr><td class="k">3% per leg</td><td class="n">−3.79% · −0.14</td><td class="n hi">+11.51% · 0.51</td></tr>
+        <tr><td class="k">6% per leg</td><td class="n">−25.11% · −1.21</td><td class="n hi">+2.75% · 0.16</td></tr>
+        <tr><td class="k">trades</td><td class="n">312</td><td class="n">233</td></tr>
+        <tr><td class="k">win rate</td><td class="n">76.9%</td><td class="n">87.1%</td></tr>
+      </table>
+      <p class="note" style="margin-top:8pt">return · Sharpe, net of modelled fees. SPY
+      buy-and-hold over the same window: +58.19%, Sharpe 1.21 — neither book beats it.</p>
+    </div>
+  </div>
+  <div class="panel gold" style="margin-top:12pt">
+    <div class="label">What that contrast means, said plainly</div>
+    <p class="note"><strong>C leads on live P&amp;L. B is the book that survives the friction
+    sweep.</strong> Three days on two filled spreads is noise, not evidence; two and a half years on
+    312 trades is evidence, and it says C's tenor does not clear realistic execution cost. A deck
+    that showed only the live column would be showing the weaker of the two numbers it has. There is
+    no historical option bid/ask on this venue, which is why the sweep exists at all — a book that
+    is positive only at 1% is not a book.</p>
+  </div>
+  <div class="src">reproduce with `make restore &amp;&amp; make sweep` · runs/2026-09-04_book6_account-{b,c}_1Day</div>
+</section>
+
+<!-- ============================ 14 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>WHAT HOLDS ON A GOOD DAY OR A BAD ONE · 14 / 15</div>
+  <h1>The agent, <em>summarized</em></h1>
+  <p class="lede">Four facts that do not change with market conditions, a flattering backtest, or a
+  persuasive headline.</p>
+  <div class="body cols cols-2" style="display:grid">
+    <div class="panel">
+      <div class="label">Zero models build a candidate</div>
+      <p class="note">Gates 1 through 5 are code: thresholds from the rulebook, mathematics from
+      <code>canon.py</code>. No model sits between a name entering the funnel and a structure
+      coming out of it.</p>
+    </div>
+    <div class="panel">
+      <div class="label">One live model call, and it can only subtract</div>
+      <p class="note">The news classifier runs once per cycle, after five gates. It may suppress an
+      open on catalyst risk. It never proposes, sizes or prices a structure, and every failure of it
+      resolves to PASS.</p>
+    </div>
+    <div class="panel">
+      <div class="label">Paper only, structurally</div>
+      <p class="note">No code path in this repository constructs <code>--live</code>. It is not a
+      setting to be careful with; the live path does not exist. A test asserts it.</p>
+    </div>
+    <div class="panel">
+      <div class="label">Halts need a human</div>
+      <p class="note">A −4% day or −10% drawdown stops new entries and requires someone to clear the
+      state file by hand. The one thing this agent is not allowed to decide is whether it should
+      keep going after it has been wrong.</p>
+    </div>
+  </div>
+  <div class="src">88 tests · 20 backtest engine · 68 agent failure-injection · 17 module self-checks · all offline</div>
+</section>
+
+<!-- ============================ 15 ============================ -->
+<section class="slide">
+  <div class="eyebrow"><span class="dot"></span>15 / 15</div>
+  <div class="rule-gold"></div>
+  <h1>Autonomy with a leash it <em>can't chew through</em>.</h1>
+  <p class="lede">Every spread this agent ever submitted had already survived seven gates it cannot
+  argue with. The one place a model's judgment enters is a veto that can only ever say no — and
+  everything it would have to get past to say yes was decided in code, in advance, and written down
+  beside the number.</p>
+  <div class="body cols cols-58" style="display:grid;align-items:start">
+    <div class="panel">
+      <div class="label">The deployed source, in reading order</div>
+      <div class="index">
+        <b>agent_loop.py</b> cycle · gates 1–5 · validate · mleg submit<br>
+        <b>veto.py</b> classification schema · deterministic veto<br>
+        <b>skills.py</b> P5 / V5 / P13 filters · VIX regime gate<br>
+        <b>canon.py</b> HAR forecast · MAE · VIX context<br>
+        <b>structures.py</b> structure-level P&amp;L · reconciliation<br>
+        <b>preflight.py</b> 23 live-dependency checks<br>
+        <b>profiles/*/rules.json</b> every threshold in this deck<br>
+        <b>backtest/</b> engine · strategy · fills · store · run
+      </div>
+    </div>
+    <div style="display:grid;grid-template-rows:auto auto;gap:12pt">
+      <div class="panel gold">
+        <div class="label">Verification</div>
+        <p class="note">Every threshold, drop-reason code and gate on these slides was read from the
+        deployed source on <strong>2026-09-04</strong>, and a script re-checks each number against
+        the rulebooks and run summaries at build time. Nothing here is paraphrase or an illustrative
+        figure.</p>
+      </div>
+      <div class="panel">
+        <div class="label mute">Repository</div>
+        <p class="note">alpaca-options-agent-hackathon<br>lablab.ai × Alpaca · paper-only<br>
+        <code>make restore &amp;&amp; make test &amp;&amp; make sweep</code> reproduces every number
+        on slide 13 from a clean clone, offline.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">deck source: deck/index.html · deck/verify_numbers.py</div>
+</section>
+
+</body>
+</html>
